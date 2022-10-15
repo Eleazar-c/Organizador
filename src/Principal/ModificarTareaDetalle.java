@@ -31,19 +31,27 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
     String DescTarea;
     String FechaI;
     String FechaF;
+    String CodigoTablero;
+    String NombreTablero;
+    String NombreListadoTarea;
 
     /**
-     * Creates new form ModificarTareaDetallenj 9u7\
      *
-     * ]u} u9]u]uu7''7 }"| }'[ ,uymtr6e5wq32f `1e2r,yg
-     *
-     *
+     * @param CodigoListaTarea
+     * @param CodigoTareaDetalle
+     * @param NombreTarea
+     * @param DescTarea
+     * @param FechaI
+     * @param FechaF
+     * @param CodigoTablero
+     * @param NombreTablero
+     * @param NombreTarea
      */
-    public ModificarTareaDetalle(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF) {
+    public ModificarTareaDetalle(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListaTarea) {
         initComponents();
 
         try {
-            if (CodigoListaTarea != "") {
+            if (!"".equals(CodigoListaTarea)) {
                 lblMensaje.setVisible(false);
                 this.CodigoListaTarea = CodigoListaTarea;
                 this.CodigoTareaDetalle = CodigoTareaDetalle;
@@ -51,6 +59,10 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                 this.DescTarea = DescTarea;
                 this.FechaI = FechaI;
                 this.FechaF = FechaF;
+                this.CodigoTablero = CodigoTablero;
+                this.NombreTablero = NombreTablero;
+                this.NombreListadoTarea = NombreListaTarea;
+
                 SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
 
                 txtNombreTareaDetalle.setText(NombreTarea);
@@ -61,7 +73,8 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                 Date FechaFinalParceada = fecha.parse(FechaF);
                 txtFechaFinal.setDate(FechaFinalParceada);
 
-                LocalDateTime datetime = LocalDateTime.now();
+                Date datetime = new Date();
+
                 String FechaActual = fecha.format(datetime);
                 Date FechaActualparceada = fecha.parse(FechaActual);
 
@@ -109,7 +122,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         lblEstado = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnModificar = new javax.swing.JButton();
-        btnRegresar = new javax.swing.JButton();
+        btnRegresarTareas = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -157,8 +170,13 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
 
-        btnRegresar.setText("Regresar");
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, -1, -1));
+        btnRegresarTareas.setText("Regresar");
+        btnRegresarTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarTareasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresarTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, -1, -1));
 
         lblMensaje.setText("lblMensaje");
         jPanel1.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
@@ -188,6 +206,8 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         Date FechaInicio = txtFechaInicio.getDate();
         Date FechaFinal = txtFechaFinal.getDate();
 
+        //  fechaInicioTexto = fecha.format(txtFechaInicio.getCalendar().getTime());
+        // fechaFinaTexto = fecha.format(txtFechaFinal.getCalendar().getTime());
         try {
 
             if (!NombreTarea.equals("") && !DescripcionTarea.equals("")) {
@@ -206,6 +226,22 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                     if (dt_1.compareTo(dt_2) > 0) {
                         JOptionPane.showMessageDialog(null, "La fecha de inicio debe de ser menor a la fecha final");
                         valor = 1;
+                    } else {
+                        Date datetime = new Date();
+
+                        String FechaActual = fecha.format(datetime);
+                        Date FechaActualparceada = fecha.parse(FechaActual);
+
+                        if (FechaActualparceada.compareTo(dt_2) > 0) {
+                            lblEstado.setText("Vencida");
+                            lblEstado.setForeground(Color.red);
+                        } else if (FechaActualparceada.compareTo(dt_2) == 0) {
+                            lblEstado.setText("Por Vencer");
+                            lblEstado.setForeground(Color.yellow);
+                        } else {
+                            lblEstado.setText("En Tiempo");
+                            lblEstado.setForeground(Color.green);
+                        }
                     }
                 }
 
@@ -221,6 +257,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                     lblMensaje.setText("Tarea modificado con exito.");
                     lblMensaje.setVisible(true);
                     lblMensaje.setForeground(Color.green);
+
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El campo 'Nombre tarea' y 'Descripcion de la tarea' son obligatorios.");
@@ -234,6 +271,13 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnRegresarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarTareasActionPerformed
+        //String CodigoTablero, String CodigoTarea, String NombreTablero, String NombreTarea
+        DetalleTarea detalleTarea = new DetalleTarea(this.CodigoTablero, this.CodigoListaTarea, this.NombreTablero, this.NombreListadoTarea);
+        detalleTarea.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegresarTareasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,14 +309,14 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarTareaDetalle("", "", "", "", "", "");
+                new ModificarTareaDetalle("", "", "", "", "", "", "", "", "");
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresarTareas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

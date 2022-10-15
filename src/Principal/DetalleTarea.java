@@ -84,7 +84,7 @@ public class DetalleTarea extends javax.swing.JFrame {
                         String FechaI = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 5);
                         String FechaF = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 6);
 
-                        IrDetalleTarea(CodigoListaTarea, CodigoTarea, NombreListaTarea, DescTarea,FechaI,FechaF);
+                        IrDetalleTarea(CodigoListaTarea, CodigoTarea, NombreListaTarea, DescTarea,FechaI,FechaF,CodigoTablero,NombreTablero,NombreTarea);
                         //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
                     }
                 }
@@ -115,7 +115,7 @@ public class DetalleTarea extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtDescTarea = new javax.swing.JTextField();
         btnRegistrarTarea = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         lblRuta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtCalendarFinal = new com.toedter.calendar.JDateChooser();
@@ -165,8 +165,13 @@ public class DetalleTarea extends javax.swing.JFrame {
         });
         jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, -1));
 
-        jButton2.setText("Regresar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
 
         lblRuta.setText("Ruta");
         jPanel1.add(lblRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 6, -1, 30));
@@ -199,8 +204,8 @@ public class DetalleTarea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IrDetalleTarea(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF) {
-        ModificarTareaDetalle DetalleTarea = new ModificarTareaDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF);
+    private void IrDetalleTarea(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero,String NombreTablero,String NombreLista) {
+        ModificarTareaDetalle DetalleTarea = new ModificarTareaDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF,CodigoTablero,NombreTablero,NombreLista);
         DetalleTarea.setVisible(true);
         this.setVisible(false);
     }
@@ -267,6 +272,12 @@ public class DetalleTarea extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRegistrarTareaActionPerformed
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+       ListadoTareas listadoTareas = new ListadoTareas(this.CodigoTablero,this.NombreTablero);
+       listadoTareas.setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     //ocultamos la columna que tiene el codigo
     private void OcultarCoditoTareaDetalle() {
         tblTablaTareas.getColumnModel().getColumn(1).setMaxWidth(0);
@@ -319,7 +330,7 @@ public class DetalleTarea extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdministrarTareas;
     private javax.swing.JButton btnRegistrarTarea;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

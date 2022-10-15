@@ -148,7 +148,7 @@ public class MetodosTareaDetalle {
                 pw.print("|" +t.getCodigoTarea());
                 pw.print("|" +t.getNombreTarea());
                 pw.print("|" +t.getDescTarea());
-                pw.print("|" +t.getFechaFinal());
+                pw.print("|" +t.getFechaInicio());
                 pw.println("|" +t.getFechaFinal());
             }
             pw.close();
