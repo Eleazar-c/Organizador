@@ -111,19 +111,19 @@ public class DetalleTarea extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblTablaTareas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 470, 360));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 720, 350));
 
         lblTituloTarea.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTituloTarea.setText("Tarea:");
-        jPanel1.add(lblTituloTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jPanel1.add(lblTituloTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         jLabel1.setText("Nombre tarea:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-        jPanel1.add(txtNombreTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 190, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jPanel1.add(txtNombreTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 190, -1));
 
         jLabel2.setText("Descripcion:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
-        jPanel1.add(txtDescTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 190, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        jPanel1.add(txtDescTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 190, -1));
 
         btnRegistrarTarea.setText("Registrar");
         btnRegistrarTarea.addActionListener(new java.awt.event.ActionListener() {
@@ -131,36 +131,36 @@ public class DetalleTarea extends javax.swing.JFrame {
                 btnRegistrarTareaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, -1));
 
         jButton2.setText("Regresar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
 
         lblRuta.setText("Ruta");
         jPanel1.add(lblRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 6, -1, 30));
 
         jLabel3.setText("Fecha de Vencimiento:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
-        jPanel1.add(txtCalendarFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 180, -1));
-        jPanel1.add(txtCalendarInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 180, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, -1, -1));
+        jPanel1.add(txtCalendarFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 180, -1));
+        jPanel1.add(txtCalendarInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 180, -1));
 
         jLabel4.setText("Fecha Inicio");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, -1, -1));
 
         jLabel5.setText("Fecha Final");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
