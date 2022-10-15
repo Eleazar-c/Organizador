@@ -86,7 +86,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
         jPanel1.add(btnModificarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 110, -1));
 
         btnEliminarListaTarea.setText("Eliminar");
-        jPanel1.add(btnEliminarListaTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        jPanel1.add(btnEliminarListaTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         btnRegresarListaT.setText("Regresar");
         btnRegresarListaT.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +94,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
                 btnRegresarListaTActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, -1, -1));
+        jPanel1.add(btnRegresarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
 
         lblMensaje.setForeground(new java.awt.Color(51, 153, 0));
         lblMensaje.setText("Error");
