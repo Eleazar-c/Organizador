@@ -5,7 +5,10 @@
 package Principal;
 
 import AdministrarTablero.Tablero;
+import AdministrarTablero.Tarea;
+import java.io.File;
 import java.util.ArrayList;
+import metodos.ListadoDeTareas;
 import metodos.Metodos;
 import static metodos.Metodos.DevolverTablaArreglo;
 import static metodos.Metodos.ModificarArchivoTxt;
@@ -23,9 +26,20 @@ public class ModificarTablero extends javax.swing.JFrame {
      */
     public ModificarTablero(String CodigoT, String NombreT) {
         initComponents();
-        this.CodigoTablero = CodigoT;
-        lblNombreTablero.setText("Tablero:" + NombreT);
-        txtModificaNombreTablero.setText(NombreT);
+        this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+        this.setResizable(false); //Que no se pueda cambiar el tamaño
+        if (!"".equals(CodigoT)) {
+            this.CodigoTablero = CodigoT;
+            lblNombreTablero.setText("Tablero:" + NombreT);
+            txtModificaNombreTablero.setText(NombreT);
+            lblErrorTablero.setVisible(false);
+        } else {
+            ListadoTablero tableros = new ListadoTablero();
+            this.setVisible(false);
+
+            tableros.setVisible(true);
+        }
+
     }
 
     /**
@@ -46,6 +60,7 @@ public class ModificarTablero extends javax.swing.JFrame {
         btnEliminarTablero = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnRegresarListaT = new javax.swing.JButton();
+        lblErrorTablero = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +87,11 @@ public class ModificarTablero extends javax.swing.JFrame {
         jPanel1.add(btnGuardarTableroM, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
 
         btnEliminarTablero.setText("Eliminar Tablero");
+        btnEliminarTablero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarTableroActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnEliminarTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         jLabel1.setText("Para eliminar el tablero solamente tiene que presionar el boton eliminar");
@@ -84,6 +104,11 @@ public class ModificarTablero extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRegresarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, -1, -1));
+
+        lblErrorTablero.setBackground(new java.awt.Color(255, 0, 0));
+        lblErrorTablero.setForeground(new java.awt.Color(204, 0, 0));
+        lblErrorTablero.setText("Error");
+        jPanel1.add(lblErrorTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,14 +137,42 @@ public class ModificarTablero extends javax.swing.JFrame {
             ArrayList<Tablero> ListaT = DevolverTablaArreglo("ListaTableros\\Tableros.txt");
             Tablero TableroModicar = ListaT.stream().filter(t -> t.getCodigo().equals(this.CodigoTablero)).findFirst().get();
             TableroModicar.setNombre(txtModificaNombreTablero.getText().trim());
-                        ListaT.removeIf(t ->t.getCodigo().equals(this.CodigoTablero));
+            ModificarArchivoTxt(ListaT, "Tableros");
+            lblErrorTablero.setText("Tablero modificado con exito.");
+            lblErrorTablero.setVisible(true);
 
-            ModificarArchivoTxt(ListaT,"Tableros");
-            
         }
 
 
     }//GEN-LAST:event_btnGuardarTableroMActionPerformed
+
+    private void btnEliminarTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTableroActionPerformed
+
+        Metodos metodo = new Metodos();
+
+        ListadoDeTareas listadoTarea = new ListadoDeTareas();
+        //eliminamos el listado de tareas que contenga el tablero
+        ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
+        for (Tarea t : ListadoTarea) {
+            metodo.EliminarArchivo("ListaTareas/" + t.getCodigo());
+        }
+        if (metodo.EliminarArchivo("Tablero/" + this.CodigoTablero)) {
+
+            //ahora elimimanos el listado de tareas asociadas
+            ArrayList<Tablero> tableroList = DevolverTablaArreglo("Tablero\\Tableros.txt");
+            tableroList.removeIf(t -> t.getCodigo().equals(this.CodigoTablero));
+
+            ModificarArchivoTxt(tableroList, "Tableros");
+            txtModificaNombreTablero.setEnabled(false);
+            btnEliminarTablero.setEnabled(false);
+            btnGuardarTableroM.setEnabled(false);
+            lblErrorTablero.setVisible(true);
+            lblErrorTablero.setText("Tablero eliminado con exito. Haga clic en el boton regresar");
+        } else {
+            lblErrorTablero.setText("Algo Salio mal, por favor,intente de nuevo");
+        }
+
+    }//GEN-LAST:event_btnEliminarTableroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,7 +204,7 @@ public class ModificarTablero extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarTablero("", "").setVisible(true);
+                new ModificarTablero("", "");
             }
         });
     }
@@ -164,6 +217,7 @@ public class ModificarTablero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblErrorTablero;
     private javax.swing.JLabel lblNombreTablero;
     private javax.swing.JTextField txtModificaNombreTablero;
     // End of variables declaration//GEN-END:variables

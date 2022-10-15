@@ -40,7 +40,8 @@ public class MetodosTareaDetalle {
             pw.print("|" + t.getCodigoTarea());
             pw.print("|" + t.getNombreTarea());
             pw.print("|" + t.getDescTarea());
-            pw.println("|" + t.getFechaVencimiento());
+            pw.print("|" + t.getFechaInicio());
+            pw.println("|" + t.getFechaFinal());
 
             pw.close();
         } catch (IOException e) {
@@ -55,7 +56,8 @@ public class MetodosTareaDetalle {
         cabecera.addElement("CodigoTarea");
         cabecera.addElement("NombreTarea");
         cabecera.addElement("NombreDesc");
-        cabecera.addElement("FechaVencimiento");
+        cabecera.addElement("FechaInicio");
+        cabecera.addElement("FechaFinal");
 
         int contador = 1;
         //Creamos un vector que contenga la cabecera de la tabla

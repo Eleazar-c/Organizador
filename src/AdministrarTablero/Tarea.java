@@ -11,7 +11,6 @@ package AdministrarTablero;
 public class Tarea {
 
     private String CodigoTablero;
-    private String NombreTablero;
     private String codigo;
     private String nombre;
 
@@ -23,13 +22,6 @@ public class Tarea {
         this.CodigoTablero = CodigoTablero;
     }
 
-    public String getNombreTablero() {
-        return NombreTablero;
-    }
-
-    public void setNombreTablero(String NombreTablero) {
-        this.NombreTablero = NombreTablero;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -47,9 +39,8 @@ public class Tarea {
         this.nombre = nombre;
     }
 
-    public Tarea(String CodigoTablero,String NombreTablero, String codigo, String nombre) {
+    public Tarea(String CodigoTablero, String codigo, String nombre) {
         this.CodigoTablero = CodigoTablero;
-        this.NombreTablero = CodigoTablero;
         this.codigo = codigo;
         this.nombre = nombre;
     }

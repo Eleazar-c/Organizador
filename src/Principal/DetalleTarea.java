@@ -5,7 +5,9 @@
 package Principal;
 
 import AdministrarTablero.TareaDetalle;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -50,10 +52,11 @@ public class DetalleTarea extends javax.swing.JFrame {
 
             vCabeceras.addElement("No.");
             vCabeceras.addElement("Nombre");
-            vCabeceras.addElement("Fecha Vencimiento");
+            vCabeceras.addElement("Fecha Inicio");
+            vCabeceras.addElement("Fecha Final");
 
             mdlTable = new DefaultTableModel(vCabeceras, 0);
-            tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("Tareas\\" + CodigoTarea));
+            tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("ListaTareas\\" + CodigoTarea));
             OcultarCoditoTareaDetalle();
 
         } else {
@@ -84,7 +87,10 @@ public class DetalleTarea extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         lblRuta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCalendar = new com.toedter.calendar.JDateChooser();
+        txtCalendarFinal = new com.toedter.calendar.JDateChooser();
+        txtCalendarInicio = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,17 +131,24 @@ public class DetalleTarea extends javax.swing.JFrame {
                 btnRegistrarTareaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
 
         jButton2.setText("Regresar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, -1, -1));
 
         lblRuta.setText("Ruta");
         jPanel1.add(lblRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 6, -1, 30));
 
         jLabel3.setText("Fecha de Vencimiento:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
-        jPanel1.add(txtCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jPanel1.add(txtCalendarFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 180, -1));
+        jPanel1.add(txtCalendarInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 180, -1));
+
+        jLabel4.setText("Fecha Inicio");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, -1, -1));
+
+        jLabel5.setText("Fecha Final");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,14 +172,20 @@ public class DetalleTarea extends javax.swing.JFrame {
         MetodosTareaDetalle metodoTareaDetalle = new MetodosTareaDetalle();
         String nombreTarea = txtNombreTarea.getText();
         String DescTarea = txtDescTarea.getText();
-        String FechaVencimientoTabla="---";
+        SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        Date FechaInicio = txtCalendarInicio.getDate();
+        Date FechaFinal = txtCalendarFinal.getDate();
+        //int Dia = txtCalendarFinal.getCalendar().get((Calendar.DAY_OF_MONTH));
+        //int Mes = txtCalendarFinal.getCalendar().get((Calendar.MONTH));
+        //Mes = Mes + 1;
+        //int Anio = txtCalendarFinal.getCalendar().get((Calendar.YEAR));
+        //FechaVencimientoTabla = Dia + "/" + Mes + "/" + Anio;
 
-        if ("".equals(txtCalendar.getToolTipText())) {
-            int Dia = txtCalendar.getCalendar().get((Calendar.DAY_OF_MONTH));
-            int Mes = txtCalendar.getCalendar().get((Calendar.MONTH));
-            Mes = Mes + 1;
-            int Anio = txtCalendar.getCalendar().get((Calendar.YEAR));
-            FechaVencimientoTabla = Dia + "/" + Mes + "/" + Anio;
+        String fechaInicioTexto = "--";
+        String fechaFinaTexto = "--";
+        if (FechaInicio != null && FechaFinal != null) {
+            fechaInicioTexto = fecha.format(txtCalendarInicio.getCalendar().getTime());
+            fechaFinaTexto = fecha.format(txtCalendarFinal.getCalendar().getTime());
         }
 
         String codigo = metodo.GenerarCodigo();
@@ -175,11 +194,12 @@ public class DetalleTarea extends javax.swing.JFrame {
         tareaDetalle.setCodigoTarea(codigo);
         tareaDetalle.setNombreTarea(nombreTarea);
         tareaDetalle.setDescTarea(DescTarea);
-        tareaDetalle.setFechaVencimiento(FechaVencimientoTabla);
+        tareaDetalle.setFechaInicio(fechaInicioTexto);
+        tareaDetalle.setFechaFinal(fechaFinaTexto);
 
         metodoTareaDetalle.guardarTarea(tareaDetalle);
-        metodoTareaDetalle.guardarArchivoTareaDetalle(tareaDetalle, "Tareas\\" + this.CodigoTarea);
-        tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("Tareas\\" + this.CodigoTarea));
+        metodoTareaDetalle.guardarArchivoTareaDetalle(tareaDetalle, "ListaTareas\\" + this.CodigoTarea);
+        tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("ListaTareas\\" + this.CodigoTarea));
         txtNombreTarea.setText("");
         txtDescTarea.setText("");
         OcultarCoditoTareaDetalle();
@@ -240,12 +260,15 @@ public class DetalleTarea extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblRuta;
     private javax.swing.JLabel lblTituloTarea;
     private javax.swing.JTable tblTablaTareas;
-    private com.toedter.calendar.JDateChooser txtCalendar;
+    private com.toedter.calendar.JDateChooser txtCalendarFinal;
+    private com.toedter.calendar.JDateChooser txtCalendarInicio;
     private javax.swing.JTextField txtDescTarea;
     private javax.swing.JTextField txtNombreTarea;
     // End of variables declaration//GEN-END:variables

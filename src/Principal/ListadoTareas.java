@@ -38,6 +38,8 @@ public class ListadoTareas extends javax.swing.JFrame {
     public ListadoTareas(String CodigoTablero, String NombreTablero) {
         initComponents();
         if (!"".equals(CodigoTablero)) {
+            this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+            this.setResizable(false); //Que no se pueda cambiar el tamaño
             lblTituloTablero.setText("Tablero: " + NombreTablero);
 
             vCabeceras.addElement("No.");
@@ -46,7 +48,7 @@ public class ListadoTareas extends javax.swing.JFrame {
             this.NombreTablero = NombreTablero;
 
             mdlTable = new DefaultTableModel(vCabeceras, 0);
-            tblListadoTareas.setModel(metodo.ListaTareas("ListaTableros\\" + CodigoTablero + ".txt"));
+            tblListadoTareas.setModel(metodo.ListaTareas("Tablero\\" + CodigoTablero + ".txt"));
             OcultarCodigosTarea();
             //tamaño de la columna numerica
             tblListadoTareas.getColumnModel().getColumn(1).setPreferredWidth(10);
@@ -61,11 +63,10 @@ public class ListadoTareas extends javax.swing.JFrame {
                     int row = table.rowAtPoint(point);
                     String IDTABLERO = (String) tblListadoTareas.getValueAt(tblListadoTareas.getSelectedRow(), 1);
                     String CODIGOLISTATAREA = (String) tblListadoTareas.getValueAt(tblListadoTareas.getSelectedRow(), 2);
-                    String NOMBRETABLERO = (String) tblListadoTareas.getValueAt(tblListadoTareas.getSelectedRow(), 3);
-                    String NOMBRELISTATAREA = (String) tblListadoTareas.getValueAt(tblListadoTareas.getSelectedRow(), 4);
+                    String NOMBRELISTATAREA = (String) tblListadoTareas.getValueAt(tblListadoTareas.getSelectedRow(), 3);
 
                     if (Mouse_evt.getClickCount() == 2) {
-                        IrListadoTareaDetalle(IDTABLERO,CODIGOLISTATAREA,NOMBRETABLERO,NOMBRELISTATAREA);
+                        IrListadoTareaDetalle(IDTABLERO, CODIGOLISTATAREA, NombreTablero, NOMBRELISTATAREA);
                         //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
                     }
                 }
@@ -94,6 +95,7 @@ public class ListadoTareas extends javax.swing.JFrame {
         tblListadoTareas = new javax.swing.JTable();
         btnGuardarTarea = new javax.swing.JButton();
         btnRegresarTablero = new javax.swing.JButton();
+        btnListadoTModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,7 +132,7 @@ public class ListadoTareas extends javax.swing.JFrame {
                 btnGuardarTareaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 110, -1));
+        jPanel1.add(btnGuardarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 110, -1));
 
         btnRegresarTablero.setText("Regresar");
         btnRegresarTablero.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +140,15 @@ public class ListadoTareas extends javax.swing.JFrame {
                 btnRegresarTableroActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresarTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, -1, -1));
+        jPanel1.add(btnRegresarTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, -1, -1));
+
+        btnListadoTModificar.setText("Modificar Listado");
+        btnListadoTModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListadoTModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnListadoTModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,24 +173,23 @@ public class ListadoTareas extends javax.swing.JFrame {
 
             //Mandamos los datos al constructor
             tarea.setCodigoTablero(this.CodigoTableroTarea);
-            tarea.setNombreTablero(this.NombreTablero);
             tarea.setCodigo(codigo);
             tarea.setNombre(nombreTarea);
 
             //Creamo el documento txt que contendra todas las tareas
-            if (metodo.CrearArchivoTxt("Tareas\\" + codigo)) {
+            if (metodo.CrearArchivoTxt("ListaTareas\\" + codigo)) {
                 //Registamos la tarea en el archivo txt
                 metodo.guardarTarea(tarea);
                 metodo.guardarArchivoTarea(tarea, this.CodigoTableroTarea);
-                tblListadoTareas.setModel(metodo.ListaTareas("ListaTableros\\" + this.CodigoTableroTarea + ".txt"));
+                tblListadoTareas.setModel(metodo.ListaTareas("Tablero\\" + this.CodigoTableroTarea + ".txt"));
                 txtNombreTarea.setText("");
                 OcultarCodigosTarea();
             } else {
-                JOptionPane.showMessageDialog(null, "Lo sentimos su teblero no se creo, por favor intente nuevamente");
+                JOptionPane.showMessageDialog(null, "Lo sentimos su lista de tareas no se creo, por favor intente nuevamente");
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "No se puede crear una tarea si el campo 'Nombre Tarea' esta vacio.");
+            JOptionPane.showMessageDialog(null, "No se puede crear una lista de tarea si el campo 'Nombre Tarea' esta vacio.");
         }
 
     }//GEN-LAST:event_btnGuardarTareaActionPerformed
@@ -190,8 +199,14 @@ public class ListadoTareas extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_btnRegresarTableroActionPerformed
 
-    private void IrListadoTareaDetalle(String IDTABLERO,String CODIGOLISTATAREA,String NOMBRETABLERO,String NOMBRELISTATAREA) {
-        DetalleTarea detalleTarea = new DetalleTarea(IDTABLERO,CODIGOLISTATAREA, NOMBRETABLERO, NOMBRELISTATAREA);
+    private void btnListadoTModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoTModificarActionPerformed
+        ListadoTareasAModificar ModificarLt = new ListadoTareasAModificar(CodigoTableroTarea, this.NombreTablero);
+        this.setVisible(false);
+        ModificarLt.setVisible(true);
+    }//GEN-LAST:event_btnListadoTModificarActionPerformed
+
+    private void IrListadoTareaDetalle(String IDTABLERO, String CODIGOLISTATAREA, String NOMBRETABLERO, String NOMBRELISTATAREA) {
+        DetalleTarea detalleTarea = new DetalleTarea(IDTABLERO, CODIGOLISTATAREA, NOMBRETABLERO, NOMBRELISTATAREA);
         detalleTarea.setVisible(true);
         this.setVisible(false);
     }
@@ -206,11 +221,6 @@ public class ListadoTareas extends javax.swing.JFrame {
         tblListadoTareas.getColumnModel().getColumn(2).setMinWidth(0);
         tblListadoTareas.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
         tblListadoTareas.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
-
-        tblListadoTareas.getColumnModel().getColumn(3).setMaxWidth(0);
-        tblListadoTareas.getColumnModel().getColumn(3).setMinWidth(0);
-        tblListadoTareas.getTableHeader().getColumnModel().getColumn(3).setMaxWidth(0);
-        tblListadoTareas.getTableHeader().getColumnModel().getColumn(3).setMinWidth(0);
 
     }
 
@@ -251,6 +261,7 @@ public class ListadoTareas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarTarea;
+    private javax.swing.JButton btnListadoTModificar;
     private javax.swing.JButton btnRegresarTablero;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

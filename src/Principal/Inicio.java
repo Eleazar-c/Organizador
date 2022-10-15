@@ -40,7 +40,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         //Mostrar el listado de talberos
-        TblListadoTablero.setModel(metodo.ListaTablerosTareas("ListaTableros\\Tableros.txt"));
+        TblListadoTablero.setModel(metodo.ListaTablerosTareas("Tablero\\Tableros.txt"));
         TblListadoTablero.getColumnModel().getColumn(0).setMaxWidth(0);
         TblListadoTablero.getColumnModel().getColumn(0).setMinWidth(0);
         TblListadoTablero.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);

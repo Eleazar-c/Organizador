@@ -28,20 +28,21 @@ public class ListadoTablero extends javax.swing.JFrame {
 
     public ListadoTablero() {
         initComponents();
+          this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+        this.setResizable(false); //Que no se pueda cambiar el tamaño
         vCabeceras.addElement("Nombre");
 
         mdlTable = new DefaultTableModel(vCabeceras, 0);
-        TblTablero.setModel(metodo.ListaTablerosTareas("ListaTableros\\Tableros.txt"));
+        TblTablero.setModel(metodo.ListaTablerosTareas("Tablero\\Tableros.txt"));
 
-        
         //ocultamos la primera columna que contiene el codigo
         TblTablero.getColumnModel().getColumn(0).setMaxWidth(0);
         TblTablero.getColumnModel().getColumn(0).setMinWidth(0);
         TblTablero.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         TblTablero.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
-        
-          TblTablero.addMouseListener(new MouseAdapter() {
-                
+
+        TblTablero.addMouseListener(new MouseAdapter() {
+
             //Funcion al hacer doble clic sobre un registro traer el nombre del tablero
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
@@ -51,8 +52,8 @@ public class ListadoTablero extends javax.swing.JFrame {
                 if (Mouse_evt.getClickCount() == 2) {
                     String CodigoTablero = (String) TblTablero.getValueAt(TblTablero.getSelectedRow(), 0);
                     String NombreTablero = (String) TblTablero.getValueAt(TblTablero.getSelectedRow(), 2);
-                   
-                    IrDetalleTableroM(CodigoTablero,NombreTablero);
+
+                    IrDetalleTableroM(CodigoTablero, NombreTablero);
                     //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
                 }
             }
@@ -164,30 +165,37 @@ public class ListadoTablero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
- private void IrDetalleTableroM(String Codigo,String Nombre){
-     ModificarTablero modifica = new ModificarTablero(Codigo, Nombre);
-     modifica.setVisible(true);
-     this.setVisible(false);
- }
+    private void IrDetalleTableroM(String Codigo, String Nombre) {
+        ModificarTablero modifica = new ModificarTablero(Codigo, Nombre);
+        modifica.setVisible(true);
+        this.setVisible(false);
+    }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        mdlTable = new DefaultTableModel();
-        String nombre = txtNombreT.getText();
-        String codigo = metodo.GenerarCodigo();
 
-        tablero.setCodigo(codigo);
-        tablero.setNombre(nombre);
+        if (!"".equals(txtNombreT.getText().trim())) {
+            mdlTable = new DefaultTableModel();
+            String nombre = txtNombreT.getText();
+            String codigo = metodo.GenerarCodigo();
 
-        if (metodo.CrearArchivoTxt("ListaTableros\\" + codigo)) {
-            metodo.guardar(tablero);
-            metodo.guardarArchivo(tablero);
-            TblTablero.setModel(metodo.ListaTablerosTareas("ListaTableros\\Tableros.txt"));
-            txtNombreT.setText("");
-            TblTablero.getColumnModel().getColumn(0).setMaxWidth(0);
-            TblTablero.getColumnModel().getColumn(0).setMinWidth(0);
-            TblTablero.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
-            TblTablero.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+            tablero.setCodigo(codigo);
+            tablero.setNombre(nombre);
+
+            if (metodo.CrearArchivoTxt("Tablero\\" + codigo)) {
+                metodo.guardar(tablero);
+                metodo.guardarArchivo(tablero);
+                TblTablero.setModel(metodo.ListaTablerosTareas("Tablero\\Tableros.txt"));
+                txtNombreT.setText("");
+                TblTablero.getColumnModel().getColumn(0).setMaxWidth(0);
+                TblTablero.getColumnModel().getColumn(0).setMinWidth(0);
+                TblTablero.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+                TblTablero.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+            } else {
+                JOptionPane.showMessageDialog(null, "Lo sentimos su teblero no se creo, por favor intente nuevamente");
+
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Lo sentimos su teblero no se creo, por favor intente nuevamente");
+            JOptionPane.showMessageDialog(null, "No puede ingresar un tablero con el nombre vacio. Por favor introdusca un nombre para el tablero");
+
         }
 
 
