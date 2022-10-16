@@ -52,6 +52,8 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
 
         try {
             if (!"".equals(CodigoListaTarea)) {
+                 this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+                this.setResizable(false); //Que no se pueda cambiar el tamaño
                 lblMensaje.setVisible(false);
                 this.CodigoListaTarea = CodigoListaTarea;
                 this.CodigoTareaDetalle = CodigoTareaDetalle;
@@ -124,11 +126,13 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnRegresarTareas = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
+        btnComenatarios = new javax.swing.JButton();
+        btbListaActividades = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "Detalle Tarea", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "Detallle Tarea", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -181,19 +185,31 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         lblMensaje.setText("lblMensaje");
         jPanel1.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        btnComenatarios.setText("Ver Comentarios");
+        btnComenatarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComenatariosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnComenatarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 410, -1, -1));
+
+        btbListaActividades.setText("Lista Actividades");
+        btbListaActividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btbListaActividadesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btbListaActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 130, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
         );
 
         pack();
@@ -279,6 +295,20 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarTareasActionPerformed
 
+    private void btnComenatariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenatariosActionPerformed
+        ListaComentarios ventanaComentarios = new ListaComentarios(this.CodigoListaTarea,this.CodigoTareaDetalle,this.NombreTarea,this.DescTarea,this.FechaI,this.FechaF,this.CodigoTablero,this.NombreTablero,this.NombreListadoTarea);
+
+        ventanaComentarios.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnComenatariosActionPerformed
+
+    private void btbListaActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbListaActividadesActionPerformed
+          ListaActividades ventanaComentarios = new ListaActividades(this.CodigoListaTarea,this.CodigoTareaDetalle,this.NombreTarea,this.DescTarea,this.FechaI,this.FechaF,this.CodigoTablero,this.NombreTablero,this.NombreListadoTarea);
+
+        ventanaComentarios.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btbListaActividadesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -315,6 +345,8 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btbListaActividades;
+    private javax.swing.JButton btnComenatarios;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresarTareas;
     private javax.swing.JLabel jLabel1;

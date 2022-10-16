@@ -49,6 +49,8 @@ public class DetalleTarea extends javax.swing.JFrame {
         initComponents();
 
         if (!"".equals(CodigoTablero)) {
+            this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+            this.setResizable(false); //Que no se pueda cambiar el tamaño
             this.NombreTablero = NombreTablero;
             this.CodigoTablero = CodigoTablero;
             this.CodigoTarea = CodigoTarea;
@@ -84,7 +86,7 @@ public class DetalleTarea extends javax.swing.JFrame {
                         String FechaI = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 5);
                         String FechaF = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 6);
 
-                        IrDetalleTarea(CodigoListaTarea, CodigoTarea, NombreListaTarea, DescTarea,FechaI,FechaF,CodigoTablero,NombreTablero,NombreTarea);
+                        IrDetalleTarea(CodigoListaTarea, CodigoTarea, NombreListaTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreTarea);
                         //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
                     }
                 }
@@ -204,8 +206,8 @@ public class DetalleTarea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IrDetalleTarea(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero,String NombreTablero,String NombreLista) {
-        ModificarTareaDetalle DetalleTarea = new ModificarTareaDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF,CodigoTablero,NombreTablero,NombreLista);
+    private void IrDetalleTarea(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreLista) {
+        ModificarTareaDetalle DetalleTarea = new ModificarTareaDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreLista);
         DetalleTarea.setVisible(true);
         this.setVisible(false);
     }
@@ -273,9 +275,9 @@ public class DetalleTarea extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarTareaActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-       ListadoTareas listadoTareas = new ListadoTareas(this.CodigoTablero,this.NombreTablero);
-       listadoTareas.setVisible(true);
-       this.setVisible(false);
+        ListadoTareas listadoTareas = new ListadoTareas(this.CodigoTablero, this.NombreTablero);
+        listadoTareas.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     //ocultamos la columna que tiene el codigo
