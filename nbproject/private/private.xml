@@ -5,15 +5,26 @@
         <group>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ListadoTareas.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/Inicio.java</file>
-            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/DetalleTarea.java</file>
-            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/Metodos.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/AdministrarTablero/Comentarios.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/ActividadMetodo.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ModificarListaTareas.java</file>
-            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ModificarTareaDetalle.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/MetodosTareaDetalle.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ModificarTareaDetalle.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/AdministrarTablero/TareaDetalle.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/ListadoDeTareas.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ModificarTablero.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/ComentariosMetodo.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/ListaActividadesMetodo.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/Actividades.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/DetalleTarea.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/metodos/Metodos.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/AdministrarTablero/ActividadesLista.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ListadoTablero.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/AdministrarTablero/ActividadeDetalle.java</file>
             <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ListadoTareasAModificar.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ListaComentarios.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ListaActividades.java</file>
+            <file>file:/C:/Users/Eleazar/Documents/NetBeansProjects/Organizador/src/Principal/ActividadesDetalle.java</file>
         </group>
     </open-files>
 </project-private>

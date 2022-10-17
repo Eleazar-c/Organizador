@@ -63,6 +63,13 @@ public class ActividadesDetalle extends javax.swing.JFrame {
             ddlEstado.addItem("Completado");
             txtnombreActividad.setText(NombreActividad);
 
+            if ("Completado".equals(Estado.trim())) {
+                ddlEstado.select(1);
+
+            } else {
+                ddlEstado.select(0);
+            }
+
             this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
             this.setResizable(false); //Que no se pueda cambiar el tamaño
 
@@ -147,7 +154,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
             String NombreActividad = txtnombreActividad.getText();
             String Estado = ddlEstado.getSelectedItem();
             if (!"".equals(NombreTablero)) {
-                ArrayList<ActividadeDetalle> ListaTA = DevolverActividadDetalleArray("Actividades\\" + this.CodigoListaDetalle + ".txt");
+                ArrayList<ActividadeDetalle> ListaTA = DevolverActividadDetalleArray(this.CodigoListaDetalle);
                 ActividadeDetalle ModficarActividad = ListaTA.stream().filter(t -> t.getCodigoActividad().equals(this.CodigoActividad)).findFirst().get();
                 ModficarActividad.setCodigoListaActividad(this.CodigoListaDetalle.trim());
                 ModficarActividad.setCodigoActividad(CodigoActividad.trim());
@@ -166,8 +173,8 @@ public class ActividadesDetalle extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActividadActionPerformed
 
     private void btbRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbRegresarActionPerformed
-        ModificarTareaDetalle tareadetalle = new ModificarTareaDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea);
-        tareadetalle.setVisible(true);
+        Actividades Actividades = new Actividades(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea,CodigoListaDetalle);
+        Actividades.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btbRegresarActionPerformed
 
@@ -208,7 +215,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActividadesDetalle("", "", "", "", "", "", "", "", "", "", "", "","");
+                new ActividadesDetalle("", "", "", "", "", "", "", "", "", "", "", "", "");
             }
         });
     }

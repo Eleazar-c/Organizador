@@ -156,9 +156,9 @@ public class ActividadMetodo {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             for (ActividadeDetalle t : Actividades) {
-                pw.print(t.getCodigoListaActividad());
-                pw.print(t.getCodigoActividad());
-                pw.print(t.getNombreActividad());
+                pw.print("|" +t.getCodigoListaActividad());
+                pw.print("|" +t.getCodigoActividad());
+                pw.print("|" +t.getNombreActividad());
                 pw.println("|" + t.getEstado());
             }
             pw.close();

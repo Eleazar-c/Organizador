@@ -74,7 +74,7 @@ public class Actividades extends javax.swing.JFrame {
 
                 mdlTable = new DefaultTableModel(vCabeceras, 0);
                 tblActividades.setModel(metodoActividades.ListarActividadesTarea("Actividades\\" + CodigoActividad));
-                //ocultarColumnasCodigo();
+                ocultarColumnasCodigo();
                 tblActividades.addMouseListener(new MouseAdapter() {
 
                     //Funcion al hacer doble clic sobre un registro traer el nombre del tablero
@@ -91,7 +91,6 @@ public class Actividades extends javax.swing.JFrame {
                             String Estado = (String) tblActividades.getValueAt(tblActividades.getSelectedRow(), 4);
 
                             irDetalleActividad(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodigoListadoActividad, NombreActividad, Estado,CodigoACtividadDetalle);
-                            //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
                         }
                     }
                 });
