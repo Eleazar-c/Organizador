@@ -6,11 +6,13 @@ package Principal;
 
 import AdministrarTablero.ActividadesLista;
 import AdministrarTablero.Comentarios;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -18,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import metodos.ComentariosMetodo;
 import metodos.ListaActividadesMetodo;
+import static metodos.ListaActividadesMetodo.DevolverArrayListaActividades;
+import static metodos.ListaActividadesMetodo.ModificarArchivoTxtListaA;
 import metodos.Metodos;
 import metodos.MetodosTareaDetalle;
 
@@ -48,7 +52,7 @@ public class ListaActividades extends javax.swing.JFrame {
     public ListaActividades(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListaTarea) {
         initComponents();
         if (!"".equals(CodigoTareaDetalle)) {
-
+            lblMensajeListaA.setVisible(false);
             this.CodigoListaTarea = CodigoListaTarea;
             this.CodigoTareaDetalle = CodigoTareaDetalle;
             this.NombreTarea = NombreTarea;
@@ -87,7 +91,7 @@ public class ListaActividades extends javax.swing.JFrame {
                         if (Mouse_evt.getClickCount() == 2) {
                             String CodgioActividad = (String) tblActividadesLista.getValueAt(tblActividadesLista.getSelectedRow(), 2);
                             IrActividad(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodgioActividad);
-                            
+
                         }
                     }
                 });
@@ -118,6 +122,8 @@ public class ListaActividades extends javax.swing.JFrame {
         btrAgregarListaA = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btbRegresar = new javax.swing.JButton();
+        btnEliminarListaA = new javax.swing.JButton();
+        lblMensajeListaA = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,6 +168,17 @@ public class ListaActividades extends javax.swing.JFrame {
         });
         jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, -1));
 
+        btnEliminarListaA.setText("Eliminar lista");
+        btnEliminarListaA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarListaAActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminarListaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, -1, -1));
+
+        lblMensajeListaA.setText("jLabel2");
+        jPanel1.add(lblMensajeListaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +193,7 @@ public class ListaActividades extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void IrActividad(String CodigoListaTarea,String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListadoTarea, String CodgioActividad) {
+    public void IrActividad(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListadoTarea, String CodgioActividad) {
         Actividades actividades = new Actividades(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodgioActividad);
         this.setVisible(false);
         actividades.setVisible(true);
@@ -209,6 +226,48 @@ public class ListaActividades extends javax.swing.JFrame {
         tareadetalle.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btbRegresarActionPerformed
+
+    private void btnEliminarListaAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarListaAActionPerformed
+        //Eliminar el registro en el archivo txt ListaActividades/
+        int column = 0;
+        //eliminar Archivo Detalles actividades/
+        int valor = 1;
+        int row = tblActividadesLista.getSelectedRow();
+        if (row >= 0) {
+            String CodigoListadoActividad = tblActividadesLista.getModel().getValueAt(row, 0).toString();
+            String CodigoArchivoDelListado = tblActividadesLista.getModel().getValueAt(row, 2).toString();
+            Metodos metodo = new Metodos();
+            System.out.println(CodigoArchivoDelListado);
+            File Archivo = new File("./src/resource/Actividades/" + CodigoArchivoDelListado + ".txt");
+            if (Archivo.isFile()) {
+                if (Archivo.delete()) {
+                    valor = 1;
+                } else {
+                    valor = 0;
+                }
+            }
+            if (valor == 1) {
+                ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(CodigoListadoActividad);
+                ListaActividad.removeIf(t -> t.getCodigoListaAc().equals(CodigoArchivoDelListado));
+
+                ModificarArchivoTxtListaA(ListaActividad, CodigoListadoActividad);
+                lblMensajeListaA.setVisible(true);
+                lblMensajeListaA.setForeground(Color.green);
+                lblMensajeListaA.setText("Lista de actividades eliminadas con exito.");
+                ocultarColumnasCodigo();
+                tblActividadesLista.setModel(metodoActividades.ListarActividadesTarea("ListaActividades\\" + this.CodigoTareaDetalle));
+
+            } else {
+                lblMensajeListaA.setForeground(Color.red);
+                lblMensajeListaA.setText("Algo Salio mal, favor asegurese que el archivo txt no este abierto");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar al menos una fila para poder modificarlo");
+
+        }
+
+
+    }//GEN-LAST:event_btnEliminarListaAActionPerformed
 
     private void ocultarColumnasCodigo() {
         tblActividadesLista.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -263,10 +322,12 @@ public class ListaActividades extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbRegresar;
+    private javax.swing.JButton btnEliminarListaA;
     private javax.swing.JButton btrAgregarListaA;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMensajeListaA;
     private javax.swing.JTable tblActividadesLista;
     private javax.swing.JTextField txtNombreListaA;
     // End of variables declaration//GEN-END:variables

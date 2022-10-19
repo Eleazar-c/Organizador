@@ -4,14 +4,20 @@
  */
 package Principal;
 
+import AdministrarTablero.ActividadesLista;
 import AdministrarTablero.Tablero;
 import AdministrarTablero.Tarea;
+import AdministrarTablero.TareaDetalle;
 import java.io.File;
 import java.util.ArrayList;
+import static metodos.ListaActividadesMetodo.DevolverArrayListaActividades;
 import metodos.ListadoDeTareas;
+import static metodos.ListadoDeTareas.DevolverTablaArregloListadoTarea;
 import metodos.Metodos;
 import static metodos.Metodos.DevolverTablaArreglo;
 import static metodos.Metodos.ModificarArchivoTxt;
+import static metodos.Metodos.ModificarArchivoTxtTableros;
+import static metodos.MetodosTareaDetalle.DevolverTareaDetalleArreglo;
 
 /**
  *
@@ -149,28 +155,50 @@ public class ModificarTablero extends javax.swing.JFrame {
     private void btnEliminarTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTableroActionPerformed
 
         Metodos metodo = new Metodos();
-
+        File Archivo;
         ListadoDeTareas listadoTarea = new ListadoDeTareas();
         //eliminamos el listado de tareas que contenga el tablero
-        ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
-        for (Tarea t : ListadoTarea) {
-            metodo.EliminarArchivo("ListaTareas/" + t.getCodigo());
-        }
-        if (metodo.EliminarArchivo("Tablero/" + this.CodigoTablero)) {
+        Archivo = new File("./src/resource/Tablero/" + this.CodigoTablero + ".txt");
+        if (Archivo.isFile()) {
+            ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
+            System.out.println(Archivo.delete());
+            for (Tarea t : ListadoTarea) {
+                Archivo = new File("./src/resource/ListaTareas/" + t.getCodigo() + ".txt");
+                if (Archivo.isFile()) {
+                    ArrayList<TareaDetalle> tareaDetalle = DevolverTareaDetalleArreglo(t.getCodigo());
+                    System.out.println(Archivo.delete());
+                    for (TareaDetalle l : tareaDetalle) {
+                        Archivo = new File("./src/resource/ListaActividades/" + l.getCodigoTarea() + ".txt");
+                        if (Archivo.isFile()) {
+                            ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(l.getCodigoTarea());
+                            System.out.println(Archivo.delete());
+                            for (ActividadesLista r : ListaActividad) {
+                                Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                                if (Archivo.isFile()) {
+                                    System.out.println(Archivo.delete());
+                                }
+                            }
+                        }
+                        //busca si hay comentario y los elimina
+                         Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
+                         if (Archivo.isFile()) {
+                             System.out.println(Archivo.delete());
+                         }
+                    }
 
-            //ahora elimimanos el listado de tareas asociadas
-            ArrayList<Tablero> tableroList = DevolverTablaArreglo("Tablero\\Tableros.txt");
-            tableroList.removeIf(t -> t.getCodigo().equals(this.CodigoTablero));
-
-            ModificarArchivoTxt(tableroList, "Tableros");
-            txtModificaNombreTablero.setEnabled(false);
-            btnEliminarTablero.setEnabled(false);
-            btnGuardarTableroM.setEnabled(false);
-            lblErrorTablero.setVisible(true);
-            lblErrorTablero.setText("Tablero eliminado con exito. Haga clic en el boton regresar");
-        } else {
-            lblErrorTablero.setText("Algo Salio mal, por favor,intente de nuevo");
+                }
+            }
         }
+
+        ArrayList<Tablero> ListaTablero = DevolverTablaArreglo("");
+        ListaTablero.removeIf(t -> t.getCodigo().equals(this.CodigoTablero));
+
+        ModificarArchivoTxtTableros(ListaTablero);
+        btnEliminarTablero.setEnabled(false);
+        btnGuardarTableroM.setEnabled(false);
+        txtModificaNombreTablero.setEnabled(false);
+        lblErrorTablero.setVisible(true);
+        lblErrorTablero.setText("Lista de actividades eliminadas con exito.");
 
     }//GEN-LAST:event_btnEliminarTableroActionPerformed
 

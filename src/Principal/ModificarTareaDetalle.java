@@ -4,16 +4,20 @@
  */
 package Principal;
 
+import AdministrarTablero.ActividadesLista;
 import AdministrarTablero.Tablero;
 import AdministrarTablero.Tarea;
 import AdministrarTablero.TareaDetalle;
 import java.awt.Color;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static metodos.ListaActividadesMetodo.DevolverArrayListaActividades;
+import metodos.Metodos;
 import static metodos.Metodos.DevolverTablaArreglo;
 import static metodos.Metodos.ModificarArchivoTxt;
 import static metodos.MetodosTareaDetalle.DevolverTareaDetalleArreglo;
@@ -52,7 +56,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
 
         try {
             if (!"".equals(CodigoListaTarea)) {
-                 this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+                this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
                 this.setResizable(false); //Que no se pueda cambiar el tamaño
                 lblMensaje.setVisible(false);
                 this.CodigoListaTarea = CodigoListaTarea;
@@ -128,6 +132,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         lblMensaje = new javax.swing.JLabel();
         btnComenatarios = new javax.swing.JButton();
         btbListaActividades = new javax.swing.JButton();
+        btnEliminarTarea = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -200,6 +205,14 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btbListaActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 130, -1));
+
+        btnEliminarTarea.setText("Eliminar tarea");
+        btnEliminarTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarTareaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -296,18 +309,60 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarTareasActionPerformed
 
     private void btnComenatariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenatariosActionPerformed
-        ListaComentarios ventanaComentarios = new ListaComentarios(this.CodigoListaTarea,this.CodigoTareaDetalle,this.NombreTarea,this.DescTarea,this.FechaI,this.FechaF,this.CodigoTablero,this.NombreTablero,this.NombreListadoTarea);
+        ListaComentarios ventanaComentarios = new ListaComentarios(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea);
 
         ventanaComentarios.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnComenatariosActionPerformed
 
     private void btbListaActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbListaActividadesActionPerformed
-          ListaActividades ventanaComentarios = new ListaActividades(this.CodigoListaTarea,this.CodigoTareaDetalle,this.NombreTarea,this.DescTarea,this.FechaI,this.FechaF,this.CodigoTablero,this.NombreTablero,this.NombreListadoTarea);
+        ListaActividades ventanaComentarios = new ListaActividades(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea);
 
         ventanaComentarios.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btbListaActividadesActionPerformed
+
+    private void btnEliminarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTareaActionPerformed
+        //codigo tarea que esta adentro del archivo txt y eliminar el archivo ListaActividades
+        //lblMensaje.setText(this.CodigoTareaDetalle);
+        int valor = 1;
+        //archivo donde se tiene que eliminar el registro txt
+        Metodos metodo = new Metodos();
+        File Archivo = new File("./src/resource/ListaActividades/" + this.CodigoTareaDetalle + ".txt");
+        if (Archivo.isFile()) {
+            ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(this.CodigoTareaDetalle);
+            if (Archivo.delete()) {
+                for (ActividadesLista r : ListaActividad) {
+                    Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                    if (Archivo.isFile()) {
+                        System.out.println(Archivo.delete());
+                    }
+                }
+            } else {
+                valor = 0;
+            }
+        }
+
+        if (valor == 1) {
+            ArrayList<TareaDetalle> ListaTareaDetalle = DevolverTareaDetalleArreglo(CodigoListaTarea);
+            ListaTareaDetalle.removeIf(t -> t.getCodigoTarea().equals(this.CodigoTareaDetalle));
+
+            ModificarArchivoTxtDetalleTarea(ListaTareaDetalle, this.CodigoListaTarea);
+//            lblMensaje.setForeground(Color.green);
+            lblMensaje.setVisible(true);
+            lblMensaje.setText("Tarea Eliminada.");
+
+            btnComenatarios.setEnabled(false);
+            btnEliminarTarea.setEnabled(false);
+            btnModificar.setEnabled(false);
+            btbListaActividades.setEnabled(false);
+        } else {
+            lblMensaje.setForeground(Color.red);
+            lblMensaje.setVisible(true);
+            lblMensaje.setText("No se puedo eliminar los listados por favor cierre todos los arcivos txt que esten abiertos.");
+        }
+
+    }//GEN-LAST:event_btnEliminarTareaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,6 +402,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbListaActividades;
     private javax.swing.JButton btnComenatarios;
+    private javax.swing.JButton btnEliminarTarea;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresarTareas;
     private javax.swing.JLabel jLabel1;

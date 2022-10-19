@@ -52,7 +52,7 @@ public class ListadoDeTareas {
             //se cierra el ojeto scanner
             scanner.close();
 
-            System.out.println("Lista actividades leidas satisfactoriamente..");
+            System.out.println("Lista actividades leidas satisfactoriamente.XD.");
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }

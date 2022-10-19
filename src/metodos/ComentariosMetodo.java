@@ -9,10 +9,13 @@ import AdministrarTablero.Tablero;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -103,6 +106,61 @@ public class ComentariosMetodo {
             return false;
         }
         return false;
+    }
+
+    //Metodo para devolver la tabla en forma de arreglo
+    public static ArrayList<Comentarios> DevolverArrayComentarioArreglo(String Ruta) {
+        // crea el flujo para leer desde el archivo
+        File file;
+        file = new File("./src/resource/Comentarios/" + Ruta + ".txt");
+        ArrayList<Comentarios> comentario = new ArrayList();
+        Scanner scanner;
+        try {
+            //se pasa el flujo al objeto scanner
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                // el objeto scanner lee linea a linea desde el archivo
+                String linea = scanner.nextLine();
+                Scanner delimitar = new Scanner(linea);
+                //se usa una expresión regular
+                //que valida que antes o despues de un pipe (|) exista cualquier cosa
+                //parte la cadena recibida cada vez que encuentre un pipe
+
+                delimitar.useDelimiter("\\s*\\|\\s*");
+                Comentarios e = new Comentarios();
+
+                e.setCodigoTarea(delimitar.next());
+                e.setCodigoComentario(delimitar.next());
+                e.setComentario(delimitar.next());
+
+                comentario.add(e);
+            }
+
+            //se cierra el ojeto scanner
+            scanner.close();
+
+            System.out.println("Lista actividades leidas satisfactoriamente..");
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        return comentario;
+    }
+
+    public static void ModificarArchivoTxtComentario(ArrayList<Comentarios> comentarioL, String Ruta) {
+        try {
+            FileWriter fw = new FileWriter("src\\resource\\Comentarios\\" + Ruta + ".txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            for (Comentarios t : comentarioL) {
+                pw.print(t.getCodigoTarea());
+                pw.print("|" +t.getCodigoComentario());
+                pw.println("|" + t.getComentario());
+            }
+            pw.close();
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
 }

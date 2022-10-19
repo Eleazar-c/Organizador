@@ -46,7 +46,7 @@ public class Actividades extends javax.swing.JFrame {
     public Actividades(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListaTarea, String CodigoActividad) {
         initComponents();
         if (!"".equals(CodigoTareaDetalle)) {
-
+            lblTareas.setVisible(false);
             this.CodigoListaTarea = CodigoListaTarea;
             this.CodigoTareaDetalle = CodigoTareaDetalle;
             this.NombreTarea = NombreTarea;
@@ -90,7 +90,7 @@ public class Actividades extends javax.swing.JFrame {
                             String NombreActividad = (String) tblActividades.getValueAt(tblActividades.getSelectedRow(), 3);
                             String Estado = (String) tblActividades.getValueAt(tblActividades.getSelectedRow(), 4);
 
-                            irDetalleActividad(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodigoListadoActividad, NombreActividad, Estado,CodigoACtividadDetalle);
+                            irDetalleActividad(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodigoListadoActividad, NombreActividad, Estado, CodigoACtividadDetalle);
                         }
                     }
                 });
@@ -121,6 +121,7 @@ public class Actividades extends javax.swing.JFrame {
         btrAgregarListaA = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btbRegresar = new javax.swing.JButton();
+        lblTareas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,7 +153,7 @@ public class Actividades extends javax.swing.JFrame {
                 btrAgregarListaAActionPerformed(evt);
             }
         });
-        jPanel1.add(btrAgregarListaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, -1, -1));
+        jPanel1.add(btrAgregarListaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLabel1.setText("Nombre Actividad");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
@@ -163,13 +164,16 @@ public class Actividades extends javax.swing.JFrame {
                 btbRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, -1, -1));
+        jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
+
+        lblTareas.setText("jLabel2");
+        jPanel1.add(lblTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,8 +183,8 @@ public class Actividades extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void irDetalleActividad(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListadoTarea, String CodgioActividad, String NombreActividad, String Estado,String CodigoACtividadDetalle) {
-        ActividadesDetalle detalleA = new ActividadesDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodgioActividad, NombreActividad, Estado,CodigoACtividadDetalle);
+    public void irDetalleActividad(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreListadoTarea, String CodgioActividad, String NombreActividad, String Estado, String CodigoACtividadDetalle) {
+        ActividadesDetalle detalleA = new ActividadesDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodgioActividad, NombreActividad, Estado, CodigoACtividadDetalle);
         this.setVisible(false);
         detalleA.setVisible(true);
     }
@@ -274,6 +278,7 @@ public class Actividades extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTareas;
     private javax.swing.JTable tblActividades;
     private javax.swing.JTextField txtNombreActividad;
     // End of variables declaration//GEN-END:variables

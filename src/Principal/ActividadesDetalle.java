@@ -98,6 +98,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
         btbRegresar = new javax.swing.JButton();
         ddlEstado = new java.awt.Choice();
         lblMensaje = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,7 +126,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
                 btbRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, -1, -1));
+        jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
 
         ddlEstado.setBackground(new java.awt.Color(153, 153, 153));
         ddlEstado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -134,6 +135,14 @@ public class ActividadesDetalle extends javax.swing.JFrame {
         lblMensaje.setForeground(new java.awt.Color(51, 153, 0));
         lblMensaje.setText("mensaje");
         jPanel1.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,7 +162,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
         if (!"".equals(txtnombreActividad.getText().trim())) {
             String NombreActividad = txtnombreActividad.getText();
             String Estado = ddlEstado.getSelectedItem();
-            if (!"".equals(NombreTablero)) {
+            if (!"".equals(NombreActividad)) {
                 ArrayList<ActividadeDetalle> ListaTA = DevolverActividadDetalleArray(this.CodigoListaDetalle);
                 ActividadeDetalle ModficarActividad = ListaTA.stream().filter(t -> t.getCodigoActividad().equals(this.CodigoActividad)).findFirst().get();
                 ModficarActividad.setCodigoListaActividad(this.CodigoListaDetalle.trim());
@@ -167,16 +176,30 @@ public class ActividadesDetalle extends javax.swing.JFrame {
 
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No puede ingresar un comentario con el campo 'Comentario' vacio. Por favor llenar el campo 'Comentario'");
+            JOptionPane.showMessageDialog(null, "No puede dejar sin combre la actividad");
 
         }
     }//GEN-LAST:event_btnModificarActividadActionPerformed
 
     private void btbRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbRegresarActionPerformed
-        Actividades Actividades = new Actividades(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea,CodigoListaDetalle);
+        Actividades Actividades = new Actividades(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, CodigoListaDetalle);
         Actividades.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btbRegresarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        //ahora elimimanos el listado de tareas asociadas
+        ArrayList<ActividadeDetalle> DetalleActividadListaArray = DevolverActividadDetalleArray(this.CodigoListaDetalle);
+        DetalleActividadListaArray.removeIf(t -> t.getCodigoActividad().equals(this.CodigoActividad));
+
+        ModificarArchivoTxtActividadDetalle(DetalleActividadListaArray, this.CodigoListaDetalle);
+        txtnombreActividad.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnModificarActividad.setEnabled(false);
+        lblMensaje.setVisible(true);
+        lblMensaje.setText("Actividad eliminado con exito. Haga clic en el boton regresar");
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,6 +245,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbRegresar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificarActividad;
     private java.awt.Choice ddlEstado;
     private javax.swing.JLabel jLabel1;

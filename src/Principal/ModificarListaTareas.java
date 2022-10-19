@@ -4,15 +4,20 @@
  */
 package Principal;
 
+import AdministrarTablero.ActividadesLista;
 import AdministrarTablero.Tablero;
 import AdministrarTablero.Tarea;
+import AdministrarTablero.TareaDetalle;
+import java.io.File;
 import java.util.ArrayList;
+import static metodos.ListaActividadesMetodo.DevolverArrayListaActividades;
 import metodos.ListadoDeTareas;
 import static metodos.ListadoDeTareas.DevolverTablaArregloListadoTarea;
 import static metodos.ListadoDeTareas.ModificarArchivoTxtLista;
 import metodos.Metodos;
 import static metodos.Metodos.DevolverTablaArreglo;
 import static metodos.Metodos.ModificarArchivoTxt;
+import static metodos.MetodosTareaDetalle.DevolverTareaDetalleArreglo;
 
 /**
  *
@@ -29,12 +34,13 @@ public class ModificarListaTareas extends javax.swing.JFrame {
      */
     public ModificarListaTareas(String CodigoTablero, String NombreListaT, String CodigoListado, String NombreTablero) {
         initComponents();
+        lblMensaje.setVisible(false);
         this.CodigoTablero = CodigoTablero;
         this.CodigoListado = CodigoListado;
         this.NombreTablero = NombreTablero;
 
         txtNombreListaTarea.setText(NombreListaT);
-         this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+        this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
         this.setResizable(false); //Que no se pueda cambiar el tamaño
     }
 
@@ -86,7 +92,12 @@ public class ModificarListaTareas extends javax.swing.JFrame {
         jPanel1.add(btnModificarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 110, -1));
 
         btnEliminarListaTarea.setText("Eliminar");
-        jPanel1.add(btnEliminarListaTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        btnEliminarListaTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarListaTareaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminarListaTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         btnRegresarListaT.setText("Regresar");
         btnRegresarListaT.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +105,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
                 btnRegresarListaTActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
+        jPanel1.add(btnRegresarListaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
 
         lblMensaje.setForeground(new java.awt.Color(51, 153, 0));
         lblMensaje.setText("Error");
@@ -108,7 +119,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
         );
 
         pack();
@@ -128,11 +139,58 @@ public class ModificarListaTareas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarListaTActionPerformed
 
     private void btnRegresarListaTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarListaTActionPerformed
-        ListadoTareasAModificar ListadoTareasM = new ListadoTareasAModificar(this.CodigoTablero,this.NombreTablero);
+        ListadoTareasAModificar ListadoTareasM = new ListadoTareasAModificar(this.CodigoTablero, this.NombreTablero);
         this.setVisible(false);
         ListadoTareasM.setVisible(true);
 
     }//GEN-LAST:event_btnRegresarListaTActionPerformed
+
+    private void btnEliminarListaTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarListaTareaActionPerformed
+        File Archivo;
+        ListadoDeTareas listadoTarea = new ListadoDeTareas();
+        //eliminamos el listado de tareas que contenga el tablero
+        Archivo = new File("./src/resource/Tablero/" + this.CodigoTablero + ".txt");
+        if (Archivo.isFile()) {
+            ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
+            System.out.println(Archivo.delete());
+            for (Tarea t : ListadoTarea) {
+                Archivo = new File("./src/resource/ListaTareas/" + t.getCodigo() + ".txt");
+                if (Archivo.isFile()) {
+                    ArrayList<TareaDetalle> tareaDetalle = DevolverTareaDetalleArreglo(t.getCodigo());
+                    System.out.println(Archivo.delete());
+                    for (TareaDetalle l : tareaDetalle) {
+                        Archivo = new File("./src/resource/ListaActividades/" + l.getCodigoTarea() + ".txt");
+                        if (Archivo.isFile()) {
+                            ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(l.getCodigoTarea());
+                            System.out.println(Archivo.delete());
+                            for (ActividadesLista r : ListaActividad) {
+                                Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                                if (Archivo.isFile()) {
+                                    System.out.println(Archivo.delete());
+                                }
+                            }
+                        }
+                        //busca si hay comentario y los elimina
+                        Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
+                        if (Archivo.isFile()) {
+                            System.out.println(Archivo.delete());
+                        }
+                    }
+
+                }
+            }
+        }
+        
+          ArrayList<Tarea> ListaT = DevolverTablaArregloListadoTarea(this.CodigoTablero);
+        ListaT.removeIf(t -> t.getCodigo().equals(this.CodigoListado));
+
+        ModificarArchivoTxtLista(ListaT,CodigoTablero);
+        lblMensaje.setText("Lista Tareas Eliminada con exito");
+        lblMensaje.setVisible(true);
+        btnEliminarListaTarea.setEnabled(false);
+        btnModificarListaT.setEnabled(false);
+        txtNombreListaTarea.setEnabled(false);
+    }//GEN-LAST:event_btnEliminarListaTareaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,7 +222,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarListaTareas("", "", "","");
+                new ModificarListaTareas("", "", "", "");
             }
         });
     }

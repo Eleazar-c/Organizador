@@ -131,6 +131,12 @@ public class Metodos {
             
     }
 
+    public boolean  EliminarArchivoMetodo(File Ruta){
+         //File fichero = new File("./src/resource/"+ Ruta + ".txt");
+
+        return Ruta.delete();
+            
+    }
    
     //Metodo para devolver la tabla en forma de arreglo
     public static ArrayList<Tablero> DevolverTablaArreglo(String Ruta) {
@@ -230,5 +236,26 @@ public class Metodos {
             res = res + letra;
         }
         return res;
+    }
+    
+     public static boolean isFileExists(File file) {
+        return file.isFile();
+    }
+     
+       //Modifica el archivo de tablero.txt
+    public static void ModificarArchivoTxtTableros(ArrayList<Tablero> TableroLista) {
+        try {
+            FileWriter fw = new FileWriter("src\\resource\\Tablero\\Tableros.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            for (Tablero t : TableroLista) {
+                pw.print(t.getCodigo());
+                pw.println("|" + t.getNombre());
+            }
+            pw.close();
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 }

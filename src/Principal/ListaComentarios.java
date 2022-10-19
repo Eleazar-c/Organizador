@@ -95,6 +95,7 @@ public class ListaComentarios extends javax.swing.JFrame {
         btnAgragarComentario = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btbRegresar = new javax.swing.JButton();
+        btnModificarComentario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,7 +127,7 @@ public class ListaComentarios extends javax.swing.JFrame {
                 btnAgragarComentarioActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgragarComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, -1, -1));
+        jPanel1.add(btnAgragarComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
         jLabel1.setText("Comentario:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
@@ -138,6 +139,14 @@ public class ListaComentarios extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, -1, -1));
+
+        btnModificarComentario.setText("Editar comentario");
+        btnModificarComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarComentarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificarComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,6 +190,21 @@ public class ListaComentarios extends javax.swing.JFrame {
         tareadetalle.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btbRegresarActionPerformed
+
+    private void btnModificarComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarComentarioActionPerformed
+        int row = tblComentarioLista.getSelectedRow();
+        if (row >= 0) {
+            String CodigoComentario = tblComentarioLista.getModel().getValueAt(row, 2).toString();
+            String Comentario = tblComentarioLista.getModel().getValueAt(row, 4).toString();
+
+            ModificaComentarios ComentarioM = new ModificaComentarios(CodigoListaTarea, this.CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreListadoTarea, Comentario, CodigoComentario);
+            ComentarioM.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Para modificar debe de seleccionar una fila y despues precionar el boton de 'Editar Comentario'");
+        }
+
+    }//GEN-LAST:event_btnModificarComentarioActionPerformed
 
     private void ocultarColumnasCodigo() {
         tblComentarioLista.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -227,7 +251,7 @@ public class ListaComentarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaComentarios("","","","","","","","","");
+                new ListaComentarios("", "", "", "", "", "", "", "", "");
             }
         });
     }
@@ -235,6 +259,7 @@ public class ListaComentarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbRegresar;
     private javax.swing.JButton btnAgragarComentario;
+    private javax.swing.JButton btnModificarComentario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
