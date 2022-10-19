@@ -118,8 +118,6 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombreTareaDetalle = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDescripcionTareaDetalle = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtFechaInicio = new com.toedter.calendar.JDateChooser();
@@ -133,6 +131,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         btnComenatarios = new javax.swing.JButton();
         btbListaActividades = new javax.swing.JButton();
         btnEliminarTarea = new javax.swing.JButton();
+        txtDescripcionTareaDetalle = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,39 +144,35 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         jPanel1.add(txtNombreTareaDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 240, -1));
 
-        txtDescripcionTareaDetalle.setColumns(20);
-        txtDescripcionTareaDetalle.setRows(5);
-        jScrollPane1.setViewportView(txtDescripcionTareaDetalle);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 450, 160));
-
         jLabel2.setText("*Descripcion de la tarea:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         jLabel3.setText("Fecha Inicio");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
-        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 130, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 130, -1));
 
         jLabel4.setText("Fecha Final:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, -1, -1));
-        jPanel1.add(txtFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 130, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jPanel1.add(txtFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 130, -1));
 
         lblEstado.setBackground(new java.awt.Color(51, 102, 0));
         lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblEstado.setForeground(new java.awt.Color(0, 0, 0));
         lblEstado.setText("Estado");
-        jPanel1.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, -1, -1));
+        jPanel1.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, -1, -1));
 
         jLabel5.setText("Estado de la tarea.");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
 
+        btnModificar.setBackground(new java.awt.Color(51, 204, 0));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("Guardar Cambios");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
 
         btnRegresarTareas.setText("Regresar");
         btnRegresarTareas.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +180,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                 btnRegresarTareasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresarTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, -1, -1));
+        jPanel1.add(btnRegresarTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
 
         lblMensaje.setText("lblMensaje");
         jPanel1.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
@@ -196,7 +191,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                 btnComenatariosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnComenatarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 410, -1, -1));
+        jPanel1.add(btnComenatarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(388, 240, 120, -1));
 
         btbListaActividades.setText("Lista Actividades");
         btbListaActividades.addActionListener(new java.awt.event.ActionListener() {
@@ -204,15 +199,18 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                 btbListaActividadesActionPerformed(evt);
             }
         });
-        jPanel1.add(btbListaActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 130, -1));
+        jPanel1.add(btbListaActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 130, -1));
 
+        btnEliminarTarea.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminarTarea.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarTarea.setText("Eliminar tarea");
         btnEliminarTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarTareaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+        jPanel1.add(btnEliminarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 280, 130, -1));
+        jPanel1.add(txtDescripcionTareaDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 490, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,11 +220,74 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarTareasActionPerformed
+        //String CodigoTablero, String CodigoTarea, String NombreTablero, String NombreTarea
+        DetalleTarea detalleTarea = new DetalleTarea(this.CodigoTablero, this.CodigoListaTarea, this.NombreTablero, this.NombreListadoTarea);
+        detalleTarea.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegresarTareasActionPerformed
+
+    private void btnComenatariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenatariosActionPerformed
+        ListaComentarios ventanaComentarios = new ListaComentarios(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea);
+
+        ventanaComentarios.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnComenatariosActionPerformed
+
+    private void btbListaActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbListaActividadesActionPerformed
+        ListaActividades ventanaComentarios = new ListaActividades(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea);
+
+        ventanaComentarios.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btbListaActividadesActionPerformed
+
+    private void btnEliminarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTareaActionPerformed
+        //codigo tarea que esta adentro del archivo txt y eliminar el archivo ListaActividades
+        //lblMensaje.setText(this.CodigoTareaDetalle);
+        int valor = 1;
+        //archivo donde se tiene que eliminar el registro txt
+        Metodos metodo = new Metodos();
+        File Archivo = new File("./src/resource/ListaActividades/" + this.CodigoTareaDetalle + ".txt");
+        if (Archivo.isFile()) {
+            ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(this.CodigoTareaDetalle);
+            if (Archivo.delete()) {
+                for (ActividadesLista r : ListaActividad) {
+                    Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                    if (Archivo.isFile()) {
+                        System.out.println(Archivo.delete());
+                    }
+                }
+            } else {
+                valor = 0;
+            }
+        }
+
+        if (valor == 1) {
+            ArrayList<TareaDetalle> ListaTareaDetalle = DevolverTareaDetalleArreglo(CodigoListaTarea);
+            ListaTareaDetalle.removeIf(t -> t.getCodigoTarea().equals(this.CodigoTareaDetalle));
+
+            ModificarArchivoTxtDetalleTarea(ListaTareaDetalle, this.CodigoListaTarea);
+//            lblMensaje.setForeground(Color.green);
+            lblMensaje.setVisible(true);
+            lblMensaje.setText("Tarea Eliminada.");
+
+            btnComenatarios.setEnabled(false);
+            btnEliminarTarea.setEnabled(false);
+            btnModificar.setEnabled(false);
+            btbListaActividades.setEnabled(false);
+        } else {
+            lblMensaje.setForeground(Color.red);
+            lblMensaje.setVisible(true);
+            lblMensaje.setText("No se puedo eliminar los listados por favor cierre todos los arcivos txt que esten abiertos.");
+        }
+
+    }//GEN-LAST:event_btnEliminarTareaActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         String NombreTarea = txtNombreTareaDetalle.getText();
@@ -298,71 +359,7 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
 
         }
 
-
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnRegresarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarTareasActionPerformed
-        //String CodigoTablero, String CodigoTarea, String NombreTablero, String NombreTarea
-        DetalleTarea detalleTarea = new DetalleTarea(this.CodigoTablero, this.CodigoListaTarea, this.NombreTablero, this.NombreListadoTarea);
-        detalleTarea.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnRegresarTareasActionPerformed
-
-    private void btnComenatariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComenatariosActionPerformed
-        ListaComentarios ventanaComentarios = new ListaComentarios(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea);
-
-        ventanaComentarios.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnComenatariosActionPerformed
-
-    private void btbListaActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbListaActividadesActionPerformed
-        ListaActividades ventanaComentarios = new ListaActividades(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea);
-
-        ventanaComentarios.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btbListaActividadesActionPerformed
-
-    private void btnEliminarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTareaActionPerformed
-        //codigo tarea que esta adentro del archivo txt y eliminar el archivo ListaActividades
-        //lblMensaje.setText(this.CodigoTareaDetalle);
-        int valor = 1;
-        //archivo donde se tiene que eliminar el registro txt
-        Metodos metodo = new Metodos();
-        File Archivo = new File("./src/resource/ListaActividades/" + this.CodigoTareaDetalle + ".txt");
-        if (Archivo.isFile()) {
-            ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(this.CodigoTareaDetalle);
-            if (Archivo.delete()) {
-                for (ActividadesLista r : ListaActividad) {
-                    Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
-                    if (Archivo.isFile()) {
-                        System.out.println(Archivo.delete());
-                    }
-                }
-            } else {
-                valor = 0;
-            }
-        }
-
-        if (valor == 1) {
-            ArrayList<TareaDetalle> ListaTareaDetalle = DevolverTareaDetalleArreglo(CodigoListaTarea);
-            ListaTareaDetalle.removeIf(t -> t.getCodigoTarea().equals(this.CodigoTareaDetalle));
-
-            ModificarArchivoTxtDetalleTarea(ListaTareaDetalle, this.CodigoListaTarea);
-//            lblMensaje.setForeground(Color.green);
-            lblMensaje.setVisible(true);
-            lblMensaje.setText("Tarea Eliminada.");
-
-            btnComenatarios.setEnabled(false);
-            btnEliminarTarea.setEnabled(false);
-            btnModificar.setEnabled(false);
-            btbListaActividades.setEnabled(false);
-        } else {
-            lblMensaje.setForeground(Color.red);
-            lblMensaje.setVisible(true);
-            lblMensaje.setText("No se puedo eliminar los listados por favor cierre todos los arcivos txt que esten abiertos.");
-        }
-
-    }//GEN-LAST:event_btnEliminarTareaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,10 +408,9 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblMensaje;
-    private javax.swing.JTextArea txtDescripcionTareaDetalle;
+    private javax.swing.JTextField txtDescripcionTareaDetalle;
     private com.toedter.calendar.JDateChooser txtFechaFinal;
     private com.toedter.calendar.JDateChooser txtFechaInicio;
     private javax.swing.JTextField txtNombreTareaDetalle;

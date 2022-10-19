@@ -35,8 +35,8 @@ public class ListaActividades extends javax.swing.JFrame {
     ActividadesLista actividadesL = new ActividadesLista();
 
     ListaActividadesMetodo metodoActividades = new ListaActividadesMetodo();
-    String CodigoTareaDetalle;
     Vector vCabeceras = new Vector();
+    String CodigoTareaDetalle;
     String CodigoListaTarea;
     String NombreTarea;
     String DescTarea;
@@ -122,8 +122,8 @@ public class ListaActividades extends javax.swing.JFrame {
         btrAgregarListaA = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btbRegresar = new javax.swing.JButton();
-        btnEliminarListaA = new javax.swing.JButton();
         lblMensajeListaA = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,16 +168,16 @@ public class ListaActividades extends javax.swing.JFrame {
         });
         jPanel1.add(btbRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, -1));
 
-        btnEliminarListaA.setText("Eliminar lista");
-        btnEliminarListaA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarListaAActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnEliminarListaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, -1, -1));
-
         lblMensajeListaA.setText("jLabel2");
         jPanel1.add(lblMensajeListaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,47 +227,24 @@ public class ListaActividades extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btbRegresarActionPerformed
 
-    private void btnEliminarListaAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarListaAActionPerformed
-        //Eliminar el registro en el archivo txt ListaActividades/
-        int column = 0;
-        //eliminar Archivo Detalles actividades/
-        int valor = 1;
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         int row = tblActividadesLista.getSelectedRow();
-        if (row >= 0) {
-            String CodigoListadoActividad = tblActividadesLista.getModel().getValueAt(row, 0).toString();
-            String CodigoArchivoDelListado = tblActividadesLista.getModel().getValueAt(row, 2).toString();
-            Metodos metodo = new Metodos();
-            System.out.println(CodigoArchivoDelListado);
-            File Archivo = new File("./src/resource/Actividades/" + CodigoArchivoDelListado + ".txt");
-            if (Archivo.isFile()) {
-                if (Archivo.delete()) {
-                    valor = 1;
-                } else {
-                    valor = 0;
-                }
-            }
-            if (valor == 1) {
-                ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(CodigoListadoActividad);
-                ListaActividad.removeIf(t -> t.getCodigoListaAc().equals(CodigoArchivoDelListado));
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar al menos una fila para poder modificarlos");
 
-                ModificarArchivoTxtListaA(ListaActividad, CodigoListadoActividad);
-                lblMensajeListaA.setVisible(true);
-                lblMensajeListaA.setForeground(Color.green);
-                lblMensajeListaA.setText("Lista de actividades eliminadas con exito.");
-                ocultarColumnasCodigo();
-                tblActividadesLista.setModel(metodoActividades.ListarActividadesTarea("ListaActividades\\" + this.CodigoTareaDetalle));
-
-            } else {
-                lblMensajeListaA.setForeground(Color.red);
-                lblMensajeListaA.setText("Algo Salio mal, favor asegurese que el archivo txt no este abierto");
-            }
         } else {
-            JOptionPane.showMessageDialog(null, "Debe de seleccionar al menos una fila para poder modificarlo");
+            String CodigoArchivoModificarLsita = tblActividadesLista.getModel().getValueAt(row, 0).toString();
+            String CodigoLsitaActividad = tblActividadesLista.getModel().getValueAt(row, 2).toString();
+            String NombreLista = tblActividadesLista.getModel().getValueAt(row, 4).toString();
 
+            System.out.println(CodigoArchivoModificarLsita + "-" + CodigoLsitaActividad + "-" + NombreLista);
+            ModificarListaActividades modificaListaA = new ModificarListaActividades(this.CodigoListaTarea, this.CodigoTareaDetalle, this.NombreTarea, this.DescTarea, this.FechaI, this.FechaF, this.CodigoTablero, this.NombreTablero, this.NombreListadoTarea, CodigoArchivoModificarLsita, CodigoLsitaActividad, NombreLista);
+            modificaListaA.setVisible(true);
+            this.setVisible(false);
         }
 
 
-    }//GEN-LAST:event_btnEliminarListaAActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void ocultarColumnasCodigo() {
         tblActividadesLista.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -322,7 +299,7 @@ public class ListaActividades extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbRegresar;
-    private javax.swing.JButton btnEliminarListaA;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btrAgregarListaA;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
