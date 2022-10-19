@@ -34,14 +34,22 @@ public class ModificarListaTareas extends javax.swing.JFrame {
      */
     public ModificarListaTareas(String CodigoTablero, String NombreListaT, String CodigoListado, String NombreTablero) {
         initComponents();
-        lblMensaje.setVisible(false);
-        this.CodigoTablero = CodigoTablero;
-        this.CodigoListado = CodigoListado;
-        this.NombreTablero = NombreTablero;
 
-        txtNombreListaTarea.setText(NombreListaT);
-        this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
-        this.setResizable(false); //Que no se pueda cambiar el tamaño
+        if (CodigoTablero != "") {
+            lblMensaje.setVisible(false);
+            this.CodigoTablero = CodigoTablero;
+            this.CodigoListado = CodigoListado;
+            this.NombreTablero = NombreTablero;
+
+            txtNombreListaTarea.setText(NombreListaT);
+            this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+            this.setResizable(false); //Que no se pueda cambiar el tamaño
+        }else{
+            Inicio inicio = new Inicio();
+            inicio.setVisible(true);
+            this.setVisible(false);
+        }
+
     }
 
     /**
@@ -152,7 +160,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
         Archivo = new File("./src/resource/Tablero/" + this.CodigoTablero + ".txt");
         if (Archivo.isFile()) {
             ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
-            System.out.println(Archivo.delete());
+            //System.out.println(Archivo.delete());
             for (Tarea t : ListadoTarea) {
                 Archivo = new File("./src/resource/ListaTareas/" + t.getCodigo() + ".txt");
                 if (Archivo.isFile()) {
@@ -180,16 +188,17 @@ public class ModificarListaTareas extends javax.swing.JFrame {
                 }
             }
         }
-        
-          ArrayList<Tarea> ListaT = DevolverTablaArregloListadoTarea(this.CodigoTablero);
+
+        ArrayList<Tarea> ListaT = DevolverTablaArregloListadoTarea(this.CodigoTablero);
         ListaT.removeIf(t -> t.getCodigo().equals(this.CodigoListado));
 
-        ModificarArchivoTxtLista(ListaT,CodigoTablero);
+        ModificarArchivoTxtLista(ListaT, CodigoTablero);
         lblMensaje.setText("Lista Tareas Eliminada con exito");
         lblMensaje.setVisible(true);
         btnEliminarListaTarea.setEnabled(false);
         btnModificarListaT.setEnabled(false);
         txtNombreListaTarea.setEnabled(false);
+
     }//GEN-LAST:event_btnEliminarListaTareaActionPerformed
 
     /**
