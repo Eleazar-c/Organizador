@@ -14,9 +14,9 @@ public class TareaDetalle {
     private String CodigoTarea;
     private String NombreTarea;
     private String DescTarea;
-    private String FechaVencimiento;
+    private String FechaInicio;
+    private String FechaFinal;
 
-   
     public TareaDetalle() {
     }
 
@@ -52,20 +52,30 @@ public class TareaDetalle {
         this.DescTarea = DescTarea;
     }
 
-     public String getFechaVencimiento() {
-        return FechaVencimiento;
+    public String getFechaInicio() {
+        return FechaInicio;
     }
 
-    public void setFechaVencimiento(String FechaVencimiento) {
-        this.FechaVencimiento = FechaVencimiento;
+    public void setFechaInicio(String FechaInicio) {
+        this.FechaInicio = FechaInicio;
     }
 
-    public TareaDetalle(String CodigoListaTarea, String CodigoTarea, String NombreTarea, String DescTarea, String FechaVencimiento) {
+    public String getFechaFinal() {
+        return FechaFinal;
+    }
+
+    public void setFechaFinal(String FechaFinal) {
+        this.FechaFinal = FechaFinal;
+    }
+
+    public TareaDetalle(String CodigoListaTarea, String CodigoTarea, String NombreTarea, String DescTarea, String FechaInicio, String FechaFinal) {
         this.ListaTarea = CodigoListaTarea;
         this.CodigoTarea = CodigoTarea;
         this.NombreTarea = NombreTarea;
         this.DescTarea = DescTarea;
-        this.FechaVencimiento=FechaVencimiento;
+        this.FechaInicio = FechaInicio;
+        this.FechaFinal = FechaFinal;
+
     }
 
 }

@@ -5,9 +5,18 @@
 package Principal;
 
 import AdministrarTablero.TareaDetalle;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import metodos.Metodos;
 import metodos.MetodosTareaDetalle;
@@ -40,6 +49,8 @@ public class DetalleTarea extends javax.swing.JFrame {
         initComponents();
 
         if (!"".equals(CodigoTablero)) {
+            this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
+            this.setResizable(false); //Que no se pueda cambiar el tamaño
             this.NombreTablero = NombreTablero;
             this.CodigoTablero = CodigoTablero;
             this.CodigoTarea = CodigoTarea;
@@ -50,11 +61,36 @@ public class DetalleTarea extends javax.swing.JFrame {
 
             vCabeceras.addElement("No.");
             vCabeceras.addElement("Nombre");
-            vCabeceras.addElement("Fecha Vencimiento");
+            vCabeceras.addElement("Fecha Inicio");
+            vCabeceras.addElement("Fecha Final");
 
             mdlTable = new DefaultTableModel(vCabeceras, 0);
-            tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("Tareas\\" + CodigoTarea));
+            tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("ListaTareas\\" + CodigoTarea));
             OcultarCoditoTareaDetalle();
+
+            //Ahora agregamos la funcion para hacer clic encima de la tarea muestre el detalle
+            tblTablaTareas.addMouseListener(new MouseAdapter() {
+
+                //Funcion al hacer doble clic sobre un registro traer el nombre del tablero
+                @Override
+                public void mousePressed(MouseEvent Mouse_evt) {
+                    JTable table = (JTable) Mouse_evt.getSource();
+                    Point point = Mouse_evt.getPoint();
+                    int row = table.rowAtPoint(point);
+                    if (Mouse_evt.getClickCount() == 2) {
+                        String CodigoListaTarea = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 1);
+                        String CodigoTarea = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 2);
+
+                        String NombreListaTarea = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 3);
+                        String DescTarea = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 4);
+                        String FechaI = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 5);
+                        String FechaF = (String) tblTablaTareas.getValueAt(tblTablaTareas.getSelectedRow(), 6);
+
+                        IrDetalleTarea(CodigoListaTarea, CodigoTarea, NombreListaTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreTarea);
+                        //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
+                    }
+                }
+            });
 
         } else {
             inicio.setVisible(true);
@@ -81,10 +117,13 @@ public class DetalleTarea extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtDescTarea = new javax.swing.JTextField();
         btnRegistrarTarea = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         lblRuta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtCalendar = new com.toedter.calendar.JDateChooser();
+        txtCalendarFinal = new com.toedter.calendar.JDateChooser();
+        txtCalendarInicio = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,19 +144,19 @@ public class DetalleTarea extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblTablaTareas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 470, 360));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 750, 350));
 
         lblTituloTarea.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTituloTarea.setText("Tarea:");
-        jPanel1.add(lblTituloTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jPanel1.add(lblTituloTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        jLabel1.setText("Nombre tarea:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
-        jPanel1.add(txtNombreTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 190, -1));
+        jLabel1.setText("*Nombre tarea:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jPanel1.add(txtNombreTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 190, -1));
 
-        jLabel2.setText("Descripcion:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
-        jPanel1.add(txtDescTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 190, -1));
+        jLabel2.setText("*Descripcion:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
+        jPanel1.add(txtDescTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 190, -1));
 
         btnRegistrarTarea.setText("Registrar");
         btnRegistrarTarea.addActionListener(new java.awt.event.ActionListener() {
@@ -125,65 +164,117 @@ public class DetalleTarea extends javax.swing.JFrame {
                 btnRegistrarTareaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        jPanel1.add(btnRegistrarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, -1));
 
-        jButton2.setText("Regresar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
 
         lblRuta.setText("Ruta");
         jPanel1.add(lblRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 6, -1, 30));
 
         jLabel3.setText("Fecha de Vencimiento:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
-        jPanel1.add(txtCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, -1, -1));
+        jPanel1.add(txtCalendarFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 180, -1));
+        jPanel1.add(txtCalendarInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 180, -1));
+
+        jLabel4.setText("Fecha Inicio");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, -1, -1));
+
+        jLabel5.setText("Fecha Final");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void IrDetalleTarea(String CodigoListaTarea, String CodigoTareaDetalle, String NombreTarea, String DescTarea, String FechaI, String FechaF, String CodigoTablero, String NombreTablero, String NombreLista) {
+        ModificarTareaDetalle DetalleTarea = new ModificarTareaDetalle(CodigoListaTarea, CodigoTareaDetalle, NombreTarea, DescTarea, FechaI, FechaF, CodigoTablero, NombreTablero, NombreLista);
+        DetalleTarea.setVisible(true);
+        this.setVisible(false);
+    }
     private void btnRegistrarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTareaActionPerformed
-        mdlTable = new DefaultTableModel();
-        Metodos metodo = new Metodos();
-        MetodosTareaDetalle metodoTareaDetalle = new MetodosTareaDetalle();
-        String nombreTarea = txtNombreTarea.getText();
-        String DescTarea = txtDescTarea.getText();
-        String FechaVencimientoTabla="---";
 
-        if ("".equals(txtCalendar.getToolTipText())) {
-            int Dia = txtCalendar.getCalendar().get((Calendar.DAY_OF_MONTH));
-            int Mes = txtCalendar.getCalendar().get((Calendar.MONTH));
-            Mes = Mes + 1;
-            int Anio = txtCalendar.getCalendar().get((Calendar.YEAR));
-            FechaVencimientoTabla = Dia + "/" + Mes + "/" + Anio;
+        try {
+
+            mdlTable = new DefaultTableModel();
+            Metodos metodo = new Metodos();
+            MetodosTareaDetalle metodoTareaDetalle = new MetodosTareaDetalle();
+            String nombreTarea = txtNombreTarea.getText();
+            String DescTarea = txtDescTarea.getText();
+
+            if (!nombreTarea.equals("") && !DescTarea.equals("")) {
+                int valor = 0;
+                SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+                Date FechaInicio = txtCalendarInicio.getDate();
+                Date FechaFinal = txtCalendarFinal.getDate();
+                //int Dia = txtCalendarFinal.getCalendar().get((Calendar.DAY_OF_MONTH));
+                //int Mes = txtCalendarFinal.getCalendar().get((Calendar.MONTH));
+                //Mes = Mes + 1;
+                //int Anio = txtCalendarFinal.getCalendar().get((Calendar.YEAR));
+                //FechaVencimientoTabla = Dia + "/" + Mes + "/" + Anio;
+
+                String fechaInicioTexto = "";
+                String fechaFinaTexto = "";
+
+                if (FechaInicio != null && FechaFinal != null) {
+                    fechaInicioTexto = fecha.format(txtCalendarInicio.getCalendar().getTime());
+                    fechaFinaTexto = fecha.format(txtCalendarFinal.getCalendar().getTime());
+                }
+
+                if (!fechaInicioTexto.equals("") && !fechaFinaTexto.equals("") && !fechaInicioTexto.isBlank() && !fechaFinaTexto.isBlank() && !fechaInicioTexto.isEmpty() && !fechaFinaTexto.isEmpty()) {
+                    Date dt_1 = fecha.parse(fechaInicioTexto);
+                    Date dt_2 = fecha.parse(fechaFinaTexto);
+                    if (dt_1.compareTo(dt_2) > 0) {
+                        JOptionPane.showMessageDialog(null, "La fecha de inicio debe de ser menor a la fecha final");
+                        valor = 1;
+                    }
+
+                }
+                if (valor == 0) {
+                    String codigo = metodo.GenerarCodigo();
+
+                    tareaDetalle.setListaTarea(this.CodigoTarea);
+                    tareaDetalle.setCodigoTarea(codigo);
+                    tareaDetalle.setNombreTarea(nombreTarea);
+                    tareaDetalle.setDescTarea(DescTarea);
+                    tareaDetalle.setFechaInicio(fechaInicioTexto);
+                    tareaDetalle.setFechaFinal(fechaFinaTexto);
+
+                    metodoTareaDetalle.guardarTarea(tareaDetalle);
+                    metodoTareaDetalle.guardarArchivoTareaDetalle(tareaDetalle, "ListaTareas\\" + this.CodigoTarea);
+                    tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("ListaTareas\\" + this.CodigoTarea));
+                    txtNombreTarea.setText("");
+                    txtDescTarea.setText("");
+                    OcultarCoditoTareaDetalle();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El campo 'Nombre' y  'Descripcion' son obligatorios");
+            }
+        } catch (Exception e) {
         }
 
-        String codigo = metodo.GenerarCodigo();
-
-        tareaDetalle.setListaTarea(this.CodigoTarea);
-        tareaDetalle.setCodigoTarea(codigo);
-        tareaDetalle.setNombreTarea(nombreTarea);
-        tareaDetalle.setDescTarea(DescTarea);
-        tareaDetalle.setFechaVencimiento(FechaVencimientoTabla);
-
-        metodoTareaDetalle.guardarTarea(tareaDetalle);
-        metodoTareaDetalle.guardarArchivoTareaDetalle(tareaDetalle, "Tareas\\" + this.CodigoTarea);
-        tblTablaTareas.setModel(metodoTareas.ListaTareasDetalle("Tareas\\" + this.CodigoTarea));
-        txtNombreTarea.setText("");
-        txtDescTarea.setText("");
-        OcultarCoditoTareaDetalle();
     }//GEN-LAST:event_btnRegistrarTareaActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        ListadoTareas listadoTareas = new ListadoTareas(this.CodigoTablero, this.NombreTablero);
+        listadoTareas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     //ocultamos la columna que tiene el codigo
     private void OcultarCoditoTareaDetalle() {
@@ -236,16 +327,19 @@ public class DetalleTarea extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarTarea;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblRuta;
     private javax.swing.JLabel lblTituloTarea;
     private javax.swing.JTable tblTablaTareas;
-    private com.toedter.calendar.JDateChooser txtCalendar;
+    private com.toedter.calendar.JDateChooser txtCalendarFinal;
+    private com.toedter.calendar.JDateChooser txtCalendarInicio;
     private javax.swing.JTextField txtDescTarea;
     private javax.swing.JTextField txtNombreTarea;
     // End of variables declaration//GEN-END:variables

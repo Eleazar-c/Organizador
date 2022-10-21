@@ -4,14 +4,19 @@
  */
 package metodos;
 
+import AdministrarTablero.Tablero;
 import AdministrarTablero.Tarea;
 import AdministrarTablero.TareaDetalle;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -40,7 +45,8 @@ public class MetodosTareaDetalle {
             pw.print("|" + t.getCodigoTarea());
             pw.print("|" + t.getNombreTarea());
             pw.print("|" + t.getDescTarea());
-            pw.println("|" + t.getFechaVencimiento());
+            pw.print("|" + t.getFechaInicio());
+            pw.println("|" + t.getFechaFinal());
 
             pw.close();
         } catch (IOException e) {
@@ -52,10 +58,11 @@ public class MetodosTareaDetalle {
         Vector cabecera = new Vector();
         cabecera.addElement("No");
         cabecera.addElement("CodigoListaTarea");
-        cabecera.addElement("CodigoTarea");
+        cabecera.addElement("Codigo Tarea");
         cabecera.addElement("NombreTarea");
-        cabecera.addElement("NombreDesc");
-        cabecera.addElement("FechaVencimiento");
+        cabecera.addElement("Descripcion");
+        cabecera.addElement("Fecha Inicio");
+        cabecera.addElement("Fecha Final");
 
         int contador = 1;
         //Creamos un vector que contenga la cabecera de la tabla
@@ -89,4 +96,65 @@ public class MetodosTareaDetalle {
         return mdlTable;
     }
 
+    //Metodo para devolver la tabla en forma de arreglo
+    public static ArrayList<TareaDetalle> DevolverTareaDetalleArreglo(String Ruta) {
+        // crea el flujo para leer desde el archivo
+        File file;
+        file = new File("./src/resource/ListaTareas/" + Ruta + ".txt");
+        ArrayList<TareaDetalle> listaTareas = new ArrayList();
+        Scanner scanner;
+        try {
+            //se pasa el flujo al objeto scanner
+            scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                // el objeto scanner lee linea a linea desde el archivo
+                String linea = scanner.nextLine();
+                Scanner delimitar = new Scanner(linea);
+                //se usa una expresión regular
+                //que valida que antes o despues de un pipe (|) exista cualquier cosa
+                //parte la cadena recibida cada vez que encuentre un pipe
+
+                delimitar.useDelimiter("\\s*\\|\\s*");
+                TareaDetalle e = new TareaDetalle();
+
+                e.setListaTarea(delimitar.next());
+                e.setCodigoTarea(delimitar.next());
+                e.setNombreTarea(delimitar.next());
+                e.setDescTarea(delimitar.next());
+                e.setFechaInicio(delimitar.next());
+                e.setFechaFinal(delimitar.next());
+
+                listaTareas.add(e);
+            }
+
+            //se cierra el ojeto scanner
+            scanner.close();
+
+            System.out.println("Lista actividades leidas satisfactoriamente..");
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+        return listaTareas;
+    }
+
+    //Guardar archivo ya modificado
+    public static void ModificarArchivoTxtDetalleTarea(ArrayList<TareaDetalle> TareaDetalles, String NombreArchivo) {
+        try {
+            FileWriter fw = new FileWriter("src\\resource\\ListaTareas\\" + NombreArchivo + ".txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            for (TareaDetalle t : TareaDetalles) {
+                pw.print(t.getListaTarea());
+                pw.print("|" +t.getCodigoTarea());
+                pw.print("|" +t.getNombreTarea());
+                pw.print("|" +t.getDescTarea());
+                pw.print("|" +t.getFechaInicio());
+                pw.println("|" +t.getFechaFinal());
+            }
+            pw.close();
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
 }
