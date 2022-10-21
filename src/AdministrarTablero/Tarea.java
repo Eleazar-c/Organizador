@@ -10,9 +10,9 @@ package AdministrarTablero;
  */
 public class Tarea {
 
-    private String CodigoTablero;
-    private String codigo;
-    private String nombre;
+    public String CodigoTablero;
+    public String codigo;
+    public String nombre;
 
     public String getCodigoTablero() {
         return CodigoTablero;

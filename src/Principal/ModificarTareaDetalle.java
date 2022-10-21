@@ -263,6 +263,11 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
                         System.out.println(Archivo.delete());
                     }
                 }
+                //busca si hay comentario y los elimina
+                Archivo = new File("./src/resource/Comentarios/" + this.CodigoTareaDetalle + ".txt");
+                if (Archivo.isFile()) {
+                    System.out.println(Archivo.delete());
+                }
             } else {
                 valor = 0;
             }
@@ -281,6 +286,10 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
             btnEliminarTarea.setEnabled(false);
             btnModificar.setEnabled(false);
             btbListaActividades.setEnabled(false);
+            txtDescripcionTareaDetalle.setEnabled(false);
+            txtNombreTareaDetalle.setEnabled(false);
+            txtFechaInicio.setEnabled(false);
+            txtFechaFinal.setEnabled(false);
         } else {
             lblMensaje.setForeground(Color.red);
             lblMensaje.setVisible(true);

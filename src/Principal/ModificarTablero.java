@@ -10,6 +10,7 @@ import AdministrarTablero.Tarea;
 import AdministrarTablero.TareaDetalle;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import static metodos.ListaActividadesMetodo.DevolverArrayListaActividades;
 import metodos.ListadoDeTareas;
 import static metodos.ListadoDeTareas.DevolverTablaArregloListadoTarea;
@@ -147,6 +148,9 @@ public class ModificarTablero extends javax.swing.JFrame {
             lblErrorTablero.setText("Tablero modificado con exito.");
             lblErrorTablero.setVisible(true);
 
+        } else {
+            JOptionPane.showMessageDialog(null, "El nombre del tablero no puede quedar en blanco");
+
         }
 
 
@@ -180,10 +184,10 @@ public class ModificarTablero extends javax.swing.JFrame {
                             }
                         }
                         //busca si hay comentario y los elimina
-                         Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
-                         if (Archivo.isFile()) {
-                             System.out.println(Archivo.delete());
-                         }
+                        Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
+                        if (Archivo.isFile()) {
+                            System.out.println(Archivo.delete());
+                        }
                     }
 
                 }
@@ -198,7 +202,7 @@ public class ModificarTablero extends javax.swing.JFrame {
         btnGuardarTableroM.setEnabled(false);
         txtModificaNombreTablero.setEnabled(false);
         lblErrorTablero.setVisible(true);
-        lblErrorTablero.setText("Lista de actividades eliminadas con exito.");
+        lblErrorTablero.setText("Tablero eliminado con exito.");
 
     }//GEN-LAST:event_btnEliminarTableroActionPerformed
 

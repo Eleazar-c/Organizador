@@ -38,6 +38,7 @@ public class ListadoTareas extends javax.swing.JFrame {
     public ListadoTareas(String CodigoTablero, String NombreTablero) {
         initComponents();
         if (!"".equals(CodigoTablero)) {
+            lblRuta.setText("Ruta: "+NombreTablero+" / Lista tareas");
             this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
             this.setResizable(false); //Que no se pueda cambiar el tamaño
             lblTituloTablero.setText("Tablero: " + NombreTablero);
@@ -96,6 +97,7 @@ public class ListadoTareas extends javax.swing.JFrame {
         btnGuardarTarea = new javax.swing.JButton();
         btnRegresarTablero = new javax.swing.JButton();
         btnListadoTModificar = new javax.swing.JButton();
+        lblRuta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,7 +107,7 @@ public class ListadoTareas extends javax.swing.JFrame {
 
         lblTituloTablero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTituloTablero.setText("Tablero");
-        jPanel1.add(lblTituloTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 30));
+        jPanel1.add(lblTituloTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 30));
 
         jLabel2.setText("Nombre de la tarea:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
@@ -124,15 +126,15 @@ public class ListadoTareas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblListadoTareas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 350, 220));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 320, 220));
 
-        btnGuardarTarea.setText("Agregar tarea");
+        btnGuardarTarea.setText("Agregar lista tareas");
         btnGuardarTarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarTareaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 110, -1));
+        jPanel1.add(btnGuardarTarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 140, -1));
 
         btnRegresarTablero.setText("Regresar");
         btnRegresarTablero.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +150,10 @@ public class ListadoTareas extends javax.swing.JFrame {
                 btnListadoTModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnListadoTModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
+        jPanel1.add(btnListadoTModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 130, -1));
+
+        lblRuta.setText("jLabel1");
+        jPanel1.add(lblRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,6 +271,7 @@ public class ListadoTareas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblRuta;
     private javax.swing.JLabel lblTituloTablero;
     private javax.swing.JTable tblListadoTareas;
     private javax.swing.JTextField txtNombreTarea;

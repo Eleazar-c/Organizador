@@ -124,7 +124,6 @@ public class DetalleTarea extends javax.swing.JFrame {
         txtCalendarInicio = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        btnAdministrarTareas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,14 +187,6 @@ public class DetalleTarea extends javax.swing.JFrame {
 
         jLabel5.setText("Fecha Final");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
-
-        btnAdministrarTareas.setText("Administrar Tareas");
-        btnAdministrarTareas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdministrarTareasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAdministrarTareas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -285,10 +276,6 @@ public class DetalleTarea extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnAdministrarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarTareasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdministrarTareasActionPerformed
-
     //ocultamos la columna que tiene el codigo
     private void OcultarCoditoTareaDetalle() {
         tblTablaTareas.getColumnModel().getColumn(1).setMaxWidth(0);
@@ -339,7 +326,6 @@ public class DetalleTarea extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdministrarTareas;
     private javax.swing.JButton btnRegistrarTarea;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;

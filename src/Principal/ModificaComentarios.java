@@ -7,6 +7,7 @@ package Principal;
 import AdministrarTablero.Comentarios;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import static metodos.ComentariosMetodo.DevolverArrayComentarioArreglo;
 import static metodos.ComentariosMetodo.ModificarArchivoTxtComentario;
@@ -16,7 +17,7 @@ import static metodos.ComentariosMetodo.ModificarArchivoTxtComentario;
  * @author Eleazar
  */
 public class ModificaComentarios extends javax.swing.JFrame {
-
+    
     String CodigoListaTarea;
     String NombreTarea;
     String DescTarea;
@@ -46,17 +47,17 @@ public class ModificaComentarios extends javax.swing.JFrame {
             this.CodigoTablero = CodigoTablero;
             this.NombreTablero = NombreTablero;
             this.NombreListadoTarea = NombreListaTarea;
-
+            lblMensajeComentario.setVisible(false);
             this.Comentario = Comentario;
             this.CodigoComentario = CodigoComentario;
-
+            
             txtAreaComentario.setText(Comentario);
         } else {
             Inicio inicio = new Inicio();
             inicio.setVisible(true);
             this.setVisible(false);
         }
-
+        
     }
 
     /**
@@ -71,11 +72,10 @@ public class ModificaComentarios extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblMensajeComentario = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreaComentario = new javax.swing.JTextArea();
         btnRegresar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        txtAreaComentario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,12 +88,6 @@ public class ModificaComentarios extends javax.swing.JFrame {
 
         jLabel1.setText("El comentario se modicará al siguiente mensaje:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
-
-        txtAreaComentario.setColumns(20);
-        txtAreaComentario.setRows(5);
-        jScrollPane1.setViewportView(txtAreaComentario);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 260, 100));
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +112,7 @@ public class ModificaComentarios extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, -1));
+        jPanel1.add(txtAreaComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 350, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,20 +132,20 @@ public class ModificaComentarios extends javax.swing.JFrame {
         if (!"".equals(txtAreaComentario.getText().trim())) {
             String Comentario = txtAreaComentario.getText();
             if (!"".equals(Comentario)) {
-
+                
                 ArrayList<Comentarios> comentario = DevolverArrayComentarioArreglo(CodigoTareaDetalle);
                 Comentarios listacomentario = comentario.stream().filter(t -> t.getCodigoComentario().equals(this.CodigoComentario)).findFirst().get();
                 listacomentario.setCodigoTarea(this.CodigoTareaDetalle);
                 listacomentario.setCodigoComentario(this.CodigoComentario);
                 listacomentario.setComentario(txtAreaComentario.getText().trim());
-
+                
                 ModificarArchivoTxtComentario(comentario, this.CodigoTareaDetalle);
                 lblMensajeComentario.setVisible(true);
                 lblMensajeComentario.setText("Comentario Modificado.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No puede ingresar un comentario vacio. Por favor llenar el campo 'Comentario'");
-
+            
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -162,10 +157,10 @@ public class ModificaComentarios extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         ArrayList<Comentarios> comentario = DevolverArrayComentarioArreglo(CodigoTareaDetalle);
-
+        
         comentario.removeIf(t -> t.getCodigoComentario().equals(this.CodigoComentario));
-
-        ModificarArchivoTxtComentario(comentario,this.CodigoTareaDetalle);
+        
+        ModificarArchivoTxtComentario(comentario, this.CodigoTareaDetalle);
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);
         txtAreaComentario.setEnabled(false);
@@ -215,8 +210,7 @@ public class ModificaComentarios extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMensajeComentario;
-    private javax.swing.JTextArea txtAreaComentario;
+    private javax.swing.JTextField txtAreaComentario;
     // End of variables declaration//GEN-END:variables
 }

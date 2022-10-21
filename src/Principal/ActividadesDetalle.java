@@ -58,7 +58,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
             this.CodigoTareaDetalle = CodigoTareaDetalle;
             this.CodigoListaDetalle = CodgioActividad;
             this.CodigoActividad = CodigoACtividadDetalle;
-
+            lblMensaje.setVisible(false);
             ddlEstado.addItem("Sin completar");
             ddlEstado.addItem("Completado");
             txtnombreActividad.setText(NombreActividad);
@@ -171,7 +171,7 @@ public class ActividadesDetalle extends javax.swing.JFrame {
                 ModficarActividad.setEstado(Estado.trim());
 
                 ModificarArchivoTxtActividadDetalle(ListaTA, this.CodigoListaDetalle);
-                lblMensaje.setText("Tablero modificado con exito.");
+                lblMensaje.setText("La actividad se modificado con exito.");
                 lblMensaje.setVisible(true);
 
             }

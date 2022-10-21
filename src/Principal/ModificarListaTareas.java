@@ -44,7 +44,7 @@ public class ModificarListaTareas extends javax.swing.JFrame {
             txtNombreListaTarea.setText(NombreListaT);
             this.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
             this.setResizable(false); //Que no se pueda cambiar el tamaño
-        }else{
+        } else {
             Inicio inicio = new Inicio();
             inicio.setVisible(true);
             this.setVisible(false);
@@ -162,29 +162,31 @@ public class ModificarListaTareas extends javax.swing.JFrame {
             ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
             //System.out.println(Archivo.delete());
             for (Tarea t : ListadoTarea) {
-                Archivo = new File("./src/resource/ListaTareas/" + t.getCodigo() + ".txt");
-                if (Archivo.isFile()) {
-                    ArrayList<TareaDetalle> tareaDetalle = DevolverTareaDetalleArreglo(t.getCodigo());
-                    System.out.println(Archivo.delete());
-                    for (TareaDetalle l : tareaDetalle) {
-                        Archivo = new File("./src/resource/ListaActividades/" + l.getCodigoTarea() + ".txt");
-                        if (Archivo.isFile()) {
-                            ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(l.getCodigoTarea());
-                            System.out.println(Archivo.delete());
-                            for (ActividadesLista r : ListaActividad) {
-                                Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
-                                if (Archivo.isFile()) {
-                                    System.out.println(Archivo.delete());
+                if (t.codigo.equals(this.CodigoListado)) {
+                    Archivo = new File("./src/resource/ListaTareas/" + t.getCodigo() + ".txt");
+                    if (Archivo.isFile()) {
+                        ArrayList<TareaDetalle> tareaDetalle = DevolverTareaDetalleArreglo(t.getCodigo());
+                        System.out.println(Archivo.delete());
+                        for (TareaDetalle l : tareaDetalle) {
+                            Archivo = new File("./src/resource/ListaActividades/" + l.getCodigoTarea() + ".txt");
+                            if (Archivo.isFile()) {
+                                ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(l.getCodigoTarea());
+                                System.out.println(Archivo.delete());
+                                for (ActividadesLista r : ListaActividad) {
+                                    Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                                    if (Archivo.isFile()) {
+                                        System.out.println(Archivo.delete());
+                                    }
                                 }
                             }
+                            //busca si hay comentario y los elimina
+                            Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
+                            if (Archivo.isFile()) {
+                                System.out.println(Archivo.delete());
+                            }
                         }
-                        //busca si hay comentario y los elimina
-                        Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
-                        if (Archivo.isFile()) {
-                            System.out.println(Archivo.delete());
-                        }
-                    }
 
+                    }
                 }
             }
         }

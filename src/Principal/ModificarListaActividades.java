@@ -113,7 +113,7 @@ public class ModificarListaActividades extends javax.swing.JFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, -1, -1));
+        jPanel1.add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
 
         lblmensaje.setText("jLabel2");
         jPanel1.add(lblmensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
@@ -126,7 +126,7 @@ public class ModificarListaActividades extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
         );
 
         pack();
@@ -177,6 +177,7 @@ public class ModificarListaActividades extends javax.swing.JFrame {
             lblmensaje.setText("Lista de actividades eliminadas con exito.");
             btnModificar.setEnabled(false);
             btnEliminar.setEnabled(false);
+            txtNombreListaTareas.setEnabled(false);
 
         } else {
             lblmensaje.setForeground(Color.red);
