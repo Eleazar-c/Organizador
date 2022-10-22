@@ -253,18 +253,18 @@ public class ModificarTareaDetalle extends javax.swing.JFrame {
         int valor = 1;
         //archivo donde se tiene que eliminar el registro txt
         Metodos metodo = new Metodos();
-        File Archivo = new File("./src/resource/ListaActividades/" + this.CodigoTareaDetalle + ".txt");
+        File Archivo = new File("C:/Organizador/ListaActividades/" + this.CodigoTareaDetalle + ".txt");
         if (Archivo.isFile()) {
             ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(this.CodigoTareaDetalle);
             if (Archivo.delete()) {
                 for (ActividadesLista r : ListaActividad) {
-                    Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                    Archivo = new File("C:/Organizador/Actividades/" + r.getCodigoListaAc() + ".txt");
                     if (Archivo.isFile()) {
                         System.out.println(Archivo.delete());
                     }
                 }
                 //busca si hay comentario y los elimina
-                Archivo = new File("./src/resource/Comentarios/" + this.CodigoTareaDetalle + ".txt");
+                Archivo = new File("C:/Organizador/Comentarios/" + this.CodigoTareaDetalle + ".txt");
                 if (Archivo.isFile()) {
                     System.out.println(Archivo.delete());
                 }

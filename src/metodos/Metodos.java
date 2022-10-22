@@ -43,7 +43,7 @@ public class Metodos {
     //Procedimiento para guardar en un archivo txt
     public void guardarArchivo(Tablero t) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\Tablero\\Tableros.txt", true);
+            FileWriter fw = new FileWriter("C:\\Organizador\\Tablero\\Tableros.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.print(t.getCodigo());
@@ -58,7 +58,7 @@ public class Metodos {
     //Procedimiento para guardar la tarea en un archivo txt
     public void guardarArchivoTarea(Tarea t, String CodigoTarea) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\Tablero\\" + CodigoTarea + ".txt", true);
+            FileWriter fw = new FileWriter("C:\\Organizador\\Tablero\\" + CodigoTarea + ".txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.print(t.getCodigoTablero());
@@ -74,7 +74,7 @@ public class Metodos {
     //Guardar archivo ya modificado
     public static void ModificarArchivoTxt(ArrayList<Tablero> TableroLista, String NombreArchivo) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\Tablero\\" + NombreArchivo + ".txt");
+            FileWriter fw = new FileWriter("C:\\Organizador\\Tablero\\" + NombreArchivo + ".txt");
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             for (Tablero t : TableroLista) {
@@ -104,7 +104,7 @@ public class Metodos {
             }
         };
         try {
-            FileReader fr = new FileReader("src\\resource\\" + Ruta);
+            FileReader fr = new FileReader("C:\\Organizador\\" + Ruta);
             BufferedReader br = new BufferedReader(fr);
             String d;
             while ((d = br.readLine()) != null) {
@@ -125,7 +125,7 @@ public class Metodos {
     }
     
     public boolean EliminarArchivo(String Ruta){
-         File fichero = new File("./src/resource/"+ Ruta + ".txt");
+         File fichero = new File("C:/Organizador/"+ Ruta + ".txt");
 
         return fichero.delete();
             
@@ -142,7 +142,7 @@ public class Metodos {
     public static ArrayList<Tablero> DevolverTablaArreglo(String Ruta) {
         // crea el flujo para leer desde el archivo
         File file;
-        file = new File("./src/resource/Tablero/Tableros.txt");
+        file = new File("C:/Organizador/Tablero/Tableros.txt");
         ArrayList<Tablero> listaTareas = new ArrayList();
         Scanner scanner;
         try {
@@ -178,7 +178,7 @@ public class Metodos {
     //Creamos el archivo que va contener las tareas.
     public boolean CrearArchivoTxt(String Codigo) {
         try {
-            archivo = new File("src\\resource\\" + Codigo + ".txt");
+            archivo = new File("C:\\Organizador\\" + Codigo + ".txt");
             if (archivo.createNewFile()) {
                 return true;
             }
@@ -206,7 +206,7 @@ public class Metodos {
             }
         };
         try {
-            FileReader fr = new FileReader("src\\resource\\" + Ruta);
+            FileReader fr = new FileReader("C:\\Organizador\\" + Ruta);
             BufferedReader br = new BufferedReader(fr);
             String d;
             while ((d = br.readLine()) != null) {
@@ -245,7 +245,7 @@ public class Metodos {
        //Modifica el archivo de tablero.txt
     public static void ModificarArchivoTxtTableros(ArrayList<Tablero> TableroLista) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\Tablero\\Tableros.txt");
+            FileWriter fw = new FileWriter("C:\\Organizador\\Tablero\\Tableros.txt");
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             for (Tablero t : TableroLista) {

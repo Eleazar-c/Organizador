@@ -158,7 +158,7 @@ public class ModificarListaActividades extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
       int valor = 1;
-        File Archivo = new File("./src/resource/Actividades/" + CodigoLista + ".txt");
+        File Archivo = new File("C:/Organizador/Actividades/" + CodigoLista + ".txt");
         if (Archivo.isFile()) {
             if (Archivo.delete()) {
                 valor = 1;

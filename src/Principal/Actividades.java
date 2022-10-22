@@ -58,7 +58,7 @@ public class Actividades extends javax.swing.JFrame {
             this.NombreListadoTarea = NombreListaTarea;
             this.CodigoActividad = CodigoActividad;
             int valor = 1;
-            File archivo = new File("./src/resource/Actividades/" + CodigoActividad + ".txt");
+            File archivo = new File("C:/Organizador/Actividades/" + CodigoActividad + ".txt");
             if (!metodoActividades.isFileExists(archivo)) {
                 if (metodoActividades.CrearArchivoTxtActividades(CodigoActividad)) {
                     valor = 1;

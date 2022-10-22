@@ -7,6 +7,8 @@ package Principal;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JTable;
 import metodos.Metodos;
 
@@ -23,8 +25,9 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        CrearCarpetas();
         TblListadoTablero.addMouseListener(new MouseAdapter() {
-                
+
             //Funcion al hacer doble clic sobre un registro traer el nombre del tablero
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
@@ -34,7 +37,7 @@ public class Inicio extends javax.swing.JFrame {
                 if (Mouse_evt.getClickCount() == 2) {
                     String CodigoTablero = (String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0);
                     String NombreTablero = (String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 2);
-                    IrListadoTareasTablero(CodigoTablero,NombreTablero);
+                    IrListadoTareasTablero(CodigoTablero, NombreTablero);
                     //lblPrueba.setText((String) TblListadoTablero.getValueAt(TblListadoTablero.getSelectedRow(), 0));
                 }
             }
@@ -133,6 +136,79 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CrearCarpetas() {
+        File root = new File("C:/Organizador");
+        if (!root.exists()) {
+            if (root.mkdirs()) {
+                System.out.println("Organizador creado");
+            } else {
+                System.out.println("Error al crear Organizador");
+            }
+        }
+        //Crear la carpeta de tablero
+        File Tablero = new File("C:/Organizador/Tablero");
+        if (!Tablero.exists()) {
+            if (Tablero.mkdirs()) {
+                System.out.println("Directorio creado");
+            } else {
+                System.out.println("Error al crear directorio");
+            }
+        }
+
+        //Crear la carpeta de ListaTareas
+        File ListaTareas = new File("C:/Organizador/ListaTareas");
+        if (!ListaTareas.exists()) {
+            if (ListaTareas.mkdirs()) {
+                System.out.println("ListaTareas creado");
+            } else {
+                System.out.println("Error al crear ListaTareas");
+            }
+        }
+        //Crear la carpeta de lista de actividades
+        File ListaActividades = new File("C:/Organizador/ListaActividades");
+        if (!ListaActividades.exists()) {
+            if (ListaActividades.mkdirs()) {
+                System.out.println("ListaActividades creado");
+            } else {
+                System.out.println("Error al crear ListaActividades");
+            }
+        }
+        //Crear carpeta comentarios
+        File Comentarios = new File("C:/Organizador/Comentarios");
+        if (!Comentarios.exists()) {
+            if (Comentarios.mkdirs()) {
+                System.out.println("Comentarios creado");
+            } else {
+                System.out.println("Error al crear Comentarios");
+            }
+        }
+
+        //Crea la carpta actividades
+        File Actividades = new File("C:/Organizador/Actividades");
+        if (!Actividades.exists()) {
+            if (Actividades.mkdirs()) {
+                System.out.println("Actividades creado");
+            } else {
+                System.out.println("Error al crear Actividades");
+            }
+        }
+
+        //Crear archivo txt principal
+        File archivoDeTexto = new File("C:\\Organizador\\Tablero\\Tableros.txt");
+        if (!archivoDeTexto.exists()) {
+            try {
+                archivoDeTexto = new File("C:\\Organizador\\Tablero\\Tableros.txt");
+                if (archivoDeTexto.createNewFile()) {
+                    System.out.println("Tablero.txt creado");
+                }
+            } catch (IOException e) {
+                System.out.println(e);
+               System.out.println("Error al crear el archivo tableros.txt");
+            }
+
+        }
+
+    }
 
     private void btnCrearModificarTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearModificarTActionPerformed
         ListadoTablero LTablero = new ListadoTablero();
@@ -143,8 +219,8 @@ public class Inicio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCrearModificarTActionPerformed
 
-    public void IrListadoTareasTablero(String CodigoTablero,String NombreTablero) {
-        ListadoTareas LTareas = new ListadoTareas(CodigoTablero,NombreTablero);
+    public void IrListadoTareasTablero(String CodigoTablero, String NombreTablero) {
+        ListadoTareas LTareas = new ListadoTareas(CodigoTablero, NombreTablero);
         LTareas.setLocationRelativeTo(null); //Que cuando aparezca la ventana sea en el centro de la pantalla principal
         LTareas.setResizable(false); //Que no se pueda cambiar el tamaño
         LTareas.setVisible(true);
