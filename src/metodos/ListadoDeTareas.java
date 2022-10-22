@@ -25,7 +25,7 @@ public class ListadoDeTareas {
     public static ArrayList<Tarea> DevolverTablaArregloListadoTarea(String Ruta) {
         // crea el flujo para leer desde el archivo
         File file;
-        file = new File("./src/resource/Tablero/" + Ruta + ".txt");
+        file = new File("C:/Organizador/Tablero/" + Ruta + ".txt");
         ArrayList<Tarea> listaTareas = new ArrayList();
         Scanner scanner;
         try {
@@ -62,7 +62,7 @@ public class ListadoDeTareas {
     //Guardar archivo ya modificado
     public static void ModificarArchivoTxtLista(ArrayList<Tarea> TareaLista, String NombreArchivo) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\Tablero\\" + NombreArchivo + ".txt");
+            FileWriter fw = new FileWriter("C:\\Organizador\\Tablero\\" + NombreArchivo + ".txt");
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             for (Tarea t : TareaLista) {

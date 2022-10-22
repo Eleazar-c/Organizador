@@ -37,7 +37,7 @@ public class ListaActividadesMetodo {
     //Procedimiento para guardar en un archivo txt
     public void guardarArchivoActividades(ActividadesLista c, String Archivo) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\ListaActividades\\" + Archivo + ".txt", true);
+            FileWriter fw = new FileWriter("C:\\Organizador\\ListaActividades\\" + Archivo + ".txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.print(c.getCodigoTarea());
@@ -71,7 +71,7 @@ public class ListaActividadesMetodo {
         };
 
         try {
-            FileReader fr = new FileReader("src\\resource\\" + Ruta + ".txt");
+            FileReader fr = new FileReader("C:\\Organizador\\" + Ruta + ".txt");
             BufferedReader br = new BufferedReader(fr);
             String d;
             while ((d = br.readLine()) != null) {
@@ -97,7 +97,7 @@ public class ListaActividadesMetodo {
 
     public boolean CrearArchivoTxtActividades(String Codigo) {
         try {
-            File archivo = new File("./src/resource/ListaActividades/" + Codigo + ".txt");
+            File archivo = new File("C:/Organizador/ListaActividades/" + Codigo + ".txt");
             if (archivo.createNewFile()) {
                 return true;
             }
@@ -112,7 +112,7 @@ public class ListaActividadesMetodo {
     public static ArrayList<ActividadesLista> DevolverArrayListaActividades(String Ruta) {
         // crea el flujo para leer desde el archivo
         File file;
-        file = new File("./src/resource/ListaActividades/" + Ruta + ".txt");
+        file = new File("C:/Organizador/ListaActividades/" + Ruta + ".txt");
         ArrayList<ActividadesLista> listaTareas = new ArrayList();
         Scanner scanner;
         try {
@@ -149,7 +149,7 @@ public class ListaActividadesMetodo {
     //Guardar archivo ya modificado
     public static void ModificarArchivoTxtListaA(ArrayList<ActividadesLista> TableroListaActividades, String NombreArchivo) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\ListaActividades\\" + NombreArchivo + ".txt");
+            FileWriter fw = new FileWriter("C:\\Organizador\\ListaActividades\\" + NombreArchivo + ".txt");
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             for (ActividadesLista t : TableroListaActividades) {

@@ -52,7 +52,7 @@ public class ListaComentarios extends javax.swing.JFrame {
             this.NombreTablero = NombreTablero;
             this.NombreListadoTarea = NombreListaTarea;
             int valor = 1;
-            File archivo = new File("./src/resource/Comentarios/" + CodigoTareaDetalle + ".txt");
+            File archivo = new File("C:/Organizador/Comentarios/" + CodigoTareaDetalle + ".txt");
             if (!metodoComentario.isFileExists(archivo)) {
                 if (metodoComentario.CrearArchivoTxtComenatario(CodigoTareaDetalle)) {
                     valor = 1;

@@ -38,7 +38,7 @@ public class MetodosTareaDetalle {
     //Procedimiento para guardar la tarea en un archivo txt
     public void guardarArchivoTareaDetalle(TareaDetalle t, String CodigoTarea) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\" + CodigoTarea + ".txt", true);
+            FileWriter fw = new FileWriter("C:\\Organizador\\" + CodigoTarea + ".txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.print(t.getListaTarea());
@@ -74,7 +74,7 @@ public class MetodosTareaDetalle {
             }
         };
         try {
-            FileReader fr = new FileReader("src\\resource\\" + Ruta + ".txt");
+            FileReader fr = new FileReader("C:\\Organizador\\" + Ruta + ".txt");
             BufferedReader br = new BufferedReader(fr);
             String d;
             while ((d = br.readLine()) != null) {
@@ -100,7 +100,7 @@ public class MetodosTareaDetalle {
     public static ArrayList<TareaDetalle> DevolverTareaDetalleArreglo(String Ruta) {
         // crea el flujo para leer desde el archivo
         File file;
-        file = new File("./src/resource/ListaTareas/" + Ruta + ".txt");
+        file = new File("C:/Organizador/ListaTareas/" + Ruta + ".txt");
         ArrayList<TareaDetalle> listaTareas = new ArrayList();
         Scanner scanner;
         try {
@@ -140,7 +140,7 @@ public class MetodosTareaDetalle {
     //Guardar archivo ya modificado
     public static void ModificarArchivoTxtDetalleTarea(ArrayList<TareaDetalle> TareaDetalles, String NombreArchivo) {
         try {
-            FileWriter fw = new FileWriter("src\\resource\\ListaTareas\\" + NombreArchivo + ".txt");
+            FileWriter fw = new FileWriter("C:\\Organizador\\ListaTareas\\" + NombreArchivo + ".txt");
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             for (TareaDetalle t : TareaDetalles) {

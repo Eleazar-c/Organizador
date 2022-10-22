@@ -63,7 +63,7 @@ public class ListaActividades extends javax.swing.JFrame {
             this.NombreTablero = NombreTablero;
             this.NombreListadoTarea = NombreListaTarea;
             int valor = 1;
-            File archivo = new File("./src/resource/ListaActividades/" + CodigoTareaDetalle + ".txt");
+            File archivo = new File("C:/Organizador/ListaActividades/" + CodigoTareaDetalle + ".txt");
             if (!metodoActividades.isFileExists(archivo)) {
                 if (metodoActividades.CrearArchivoTxtActividades(CodigoTareaDetalle)) {
                     valor = 1;

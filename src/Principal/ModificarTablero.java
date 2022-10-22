@@ -162,29 +162,29 @@ public class ModificarTablero extends javax.swing.JFrame {
         File Archivo;
         ListadoDeTareas listadoTarea = new ListadoDeTareas();
         //eliminamos el listado de tareas que contenga el tablero
-        Archivo = new File("./src/resource/Tablero/" + this.CodigoTablero + ".txt");
+        Archivo = new File("C:/Organizador/Tablero/" + this.CodigoTablero + ".txt");
         if (Archivo.isFile()) {
             ArrayList<Tarea> ListadoTarea = listadoTarea.DevolverTablaArregloListadoTarea(this.CodigoTablero);
             System.out.println(Archivo.delete());
             for (Tarea t : ListadoTarea) {
-                Archivo = new File("./src/resource/ListaTareas/" + t.getCodigo() + ".txt");
+                Archivo = new File("C:/Organizador/ListaTareas/" + t.getCodigo() + ".txt");
                 if (Archivo.isFile()) {
                     ArrayList<TareaDetalle> tareaDetalle = DevolverTareaDetalleArreglo(t.getCodigo());
                     System.out.println(Archivo.delete());
                     for (TareaDetalle l : tareaDetalle) {
-                        Archivo = new File("./src/resource/ListaActividades/" + l.getCodigoTarea() + ".txt");
+                        Archivo = new File("C:/Organizador/ListaActividades/" + l.getCodigoTarea() + ".txt");
                         if (Archivo.isFile()) {
                             ArrayList<ActividadesLista> ListaActividad = DevolverArrayListaActividades(l.getCodigoTarea());
                             System.out.println(Archivo.delete());
                             for (ActividadesLista r : ListaActividad) {
-                                Archivo = new File("./src/resource/Actividades/" + r.getCodigoListaAc() + ".txt");
+                                Archivo = new File("C:/Organizador/Actividades/" + r.getCodigoListaAc() + ".txt");
                                 if (Archivo.isFile()) {
                                     System.out.println(Archivo.delete());
                                 }
                             }
                         }
                         //busca si hay comentario y los elimina
-                        Archivo = new File("./src/resource/Comentarios/" + l.getCodigoTarea() + ".txt");
+                        Archivo = new File("C:/Organizador/Comentarios/" + l.getCodigoTarea() + ".txt");
                         if (Archivo.isFile()) {
                             System.out.println(Archivo.delete());
                         }
